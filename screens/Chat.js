@@ -441,14 +441,14 @@ export default class Chat extends Component {
                 />
                 </View>  */}
         <View style={{ width: "100%", flexDirection: "row", borderColor: "#DBDBDB", paddingBottom: 5, backgroundColor: "#000", paddingTop: 30 }}>
-          <TouchableOpacity style={{ width: "10%", marginHorizontal: 10, marginTop: 10 }} onPress={() => this.props.navigation.navigate('Messages')}>
+          <TouchableOpacity style={{ width: "10%", marginHorizontal: 10, marginTop: 10  }} onPress={() => this.props.navigation.navigate('Messages')}>
             <Entypo name="chevron-thin-left" size={24} color="#fff" />
           </TouchableOpacity>
           <TouchableOpacity style={{ width: "70%", alignItems: "center", paddingBottom: 20 }}>
             {this.state.user_image ? (
-              <View >
+              <View style={{borderWidth:3,borderColor:"#fff"}}>
                 {/* <Image style={{width:40,height:40,borderRadius:100}} source={require('../assets/profile.png')} /> */}
-                <Image style={{ width: 40, height: 40, borderRadius: 100 }} source={{ uri: this.state.user_image }} />
+                <Image style={{  width: "100%",height: 60, borderRadius: 100 ,}} source={{ uri: this.state.user_image }} />
               </View>
             ) : null}
             <View style={{}}>
@@ -474,7 +474,7 @@ export default class Chat extends Component {
           </TouchableOpacity>
         </View>
         <LinearGradient style={{width:"100%",height:"90%", borderTopLeftRadius: 30,  }} colors={['#f7bb97', '#dd5e89']}>
-          <ScrollView style={{  }}>
+          <ScrollView style={{  borderTopLeftRadius: 30,  }}>
             <View >
               {
                 this.state.messages.map((item, index) => {

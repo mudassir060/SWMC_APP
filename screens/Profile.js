@@ -16,7 +16,7 @@ import * as Permissions from "expo-permissions";
 // import KeyboardSpacer from 'react-native-keyboard-spacer';
 // import Modal from 'react-native-modal';
 import { LinearGradient } from 'expo-linear-gradient';
-
+// import LinearGradient from 'react-native-linear-gradient';
 import * as ImagePicker from 'expo-image-picker';
 import {
   Menu,
@@ -428,58 +428,59 @@ this.setState({
     return (
 <View style={{ flex:1, alignItems: "center",backgroundColor:"#fff",paddingTop:25  }}>
 <ScrollView style={{width:"100%"}}>
-<View style={{width:"100%",marginVertical:20,alignContent:"center",alignItems:"center"}}>
-<Image style={{ width: "50%", height: 180, resizeMode:"stretch",borderRadius:50 }} source={require('../assets/profile.png')} />
+<View style={{width:"100%",marginVertical:20,alignContent:"center",alignItems:"center",}}>
+<Image style={{ width: "50%", height: 180, resizeMode:"stretch",borderRadius:50,borderWidth:3,borderColor:"#f7bb97" }} source={{ uri: this.state.user_image }} />
 </View>
 
 
-<LinearGradient style={{width:"100%",height:600,borderTopRightRadius:100}} colors={['#f7bb97','#dd5e89' ]}>
+<LinearGradient  style={{width:"100%",height:screenHeight,borderTopRightRadius:100}} colors={['#f7bb97','#dd5e89' ]}>
 <View style={{ width: "100%", alignItems: "center", alignContent: "center",marginTop:80}}>
-        <View style={{ width: "80%", justifyContent: "center", alignContent: "center",borderWidth:2,borderColor:"#fff",borderRadius:8,backgroundColor: 'rgba(238,238,238,0.2)'}}>
-          <View style={{ width: "30%",paddingHorizontal:5,justifyContent:"center",paddingTop:10 }}>
-            <Text style={{fontWeight:"bold",fontSize:17,color:"#fff"}}>
+        <View style={{ width: "80%", flexDirection:"row",paddingVertical:6,borderWidth:2,borderColor:"#fff",borderRadius:8,backgroundColor: 'rgba(238,238,238,0.2)'}}>
+          <View style={{ width: "50%",justifyContent:"center"}}>
+            <Text style={{fontWeight:"bold",fontSize:17,color:"#fff",paddingLeft:10}}>
               Name:
 </Text>
           </View>
-          <View style={{ width: "70%",justifyContent:"center" }}>
+          <View style={{ width: "50%",justifyContent:"center" }}>
           <Text style={{fontWeight:"bold",fontSize:17,color:"#fff"}}>
           {this.state.user_name}
 </Text>
           </View>
         </View>
         </View>
-        <View style={{ width: "100%", alignItems: "center", alignContent: "center",marginTop:25}}>
-        <View style={{ width: "80%", justifyContent: "center", alignContent: "center",borderWidth:2,borderColor:"#fff",borderRadius:8,backgroundColor: 'rgba(238,238,238,0.2)'}}>
-          <View style={{ width: "30%",paddingHorizontal:5,justifyContent:"center",paddingTop:10 }}>
-            <Text style={{fontWeight:"bold",fontSize:17,color:"#fff"}}>
+        <View style={{ width: "100%", alignItems: "center", alignContent: "center",marginTop:20}}>
+        <View style={{ width: "80%", flexDirection:"row",paddingVertical:6,borderWidth:2,borderColor:"#fff",borderRadius:8,backgroundColor: 'rgba(238,238,238,0.2)'}}>
+          <View style={{ width: "50%",justifyContent:"center"}}>
+            <Text style={{fontWeight:"bold",fontSize:17,color:"#fff",paddingLeft:10}}>
               E-mail:
 </Text>
           </View>
-          <View style={{ width: "70%",justifyContent:"center" }}>
+          <View style={{ width: "50%",justifyContent:"center" }}>
           <Text style={{fontWeight:"bold",fontSize:17,color:"#fff"}}>
           {this.state.user_data.email}
 </Text>
           </View>
         </View>
         </View>
-        <View style={{ width: "100%", alignItems: "center", alignContent: "center",marginTop:25}}>
-        <View style={{ width: "80%", justifyContent: "center", alignContent: "center",borderWidth:2,borderColor:"#fff",borderRadius:8,backgroundColor: 'rgba(238,238,238,0.2)'}}>
-          <View style={{ width: "30%",paddingHorizontal:5,justifyContent:"center",paddingTop:10 }}>
-            <Text style={{fontWeight:"bold",fontSize:17,color:"#fff"}}>
+        <View style={{ width: "100%", alignItems: "center", alignContent: "center",marginTop:20}}>
+        <View style={{ width: "80%", flexDirection:"row",paddingVertical:6,borderWidth:2,borderColor:"#fff",borderRadius:8,backgroundColor: 'rgba(238,238,238,0.2)'}}>
+          <View style={{ width: "50%",justifyContent:"center"}}>
+            <Text style={{fontWeight:"bold",fontSize:17,color:"#fff",paddingLeft:10}}>
              Department:
 </Text>
           </View>
-          <View style={{ width: "70%",justifyContent:"center" }}>
+          <View style={{ width: "50%",justifyContent:"center" }}>
           <Text style={{fontWeight:"bold",fontSize:17,color:"#fff"}}>
               {this.state.user_data.department}
 </Text>
           </View>
         </View>
         </View>
-        <View style={{ width: "100%", alignItems: "center", alignContent: "center",marginTop:25}}>
-        <View style={{ width: "80%", justifyContent: "center", alignContent: "center",borderWidth:2,borderColor:"#fff",borderRadius:8,backgroundColor: 'rgba(238,238,238,0.2)'}}>
+        <View style={{ width: "100%", alignItems: "center", alignContent: "center",marginTop:20}}>
+        <View style={{ width: "80%", flexDirection:"row",paddingVertical:6,borderWidth:2,borderColor:"#fff",borderRadius:8,backgroundColor: 'rgba(238,238,238,0.2)'}}>
         
-          <View style={{ width: "100%",paddingHorizontal:10,justifyContent:"center",paddingTop:10,paddingBottom:10}}>
+          <View style={{ width: "100%",paddingHorizontal:10,justifyContent:"center"}}>
+          
           <TextInput style={{fontSize:17,color:"#fff"}} 
                      keyboardType="decimal-pad"
                      placeholderTextColor="#fff"
@@ -495,10 +496,10 @@ this.setState({
         </View>
          
         </View>
-      <View style={{ width: "100%", alignItems: "center", alignContent: "center",marginTop:25}}>
-        <View style={{ width: "80%", justifyContent: "center", alignContent: "center",borderWidth:2,borderColor:"#fff",borderRadius:8,backgroundColor: 'rgba(238,238,238,0.2)'}}>
+        <View style={{ width: "100%", alignItems: "center", alignContent: "center",marginTop:20}}>
+        <View style={{ width: "80%", flexDirection:"row",paddingVertical:6,borderWidth:2,borderColor:"#fff",borderRadius:8,backgroundColor: 'rgba(238,238,238,0.2)'}}>
         
-          <View style={{ width: "100%",paddingHorizontal:10,justifyContent:"center",paddingTop:10,paddingBottom:10}}>
+          <View style={{ width: "100%",paddingHorizontal:10,justifyContent:"center"}}>
           <TextInput style={{fontSize:17,color:"#fff"}} 
                      keyboardType="decimal-pad"
                      placeholderTextColor="#fff"

@@ -550,7 +550,7 @@ const styles = StyleSheet.create({
     height: 60,
     resizeMode: "cover",
     borderRadius: 80
-
+    ,borderWidth:3,borderColor:"#fff"
 
 
   },

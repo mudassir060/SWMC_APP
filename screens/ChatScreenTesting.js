@@ -1,5 +1,5 @@
 //import React from 'react';
-import React, { Component } from "react";
+import React,{ Component } from "react";
 import {
   StyleSheet,
   StatusBar,
@@ -16,7 +16,7 @@ import {
   image
 } from "react-native";
 import Footer from './Footer';
-
+import queryString from 'query-string';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Constants from "expo-constants";
 // import { TextField } from "react-native-material-textfield";
@@ -37,49 +37,56 @@ export default class ChatScreenTesting extends Component {
   constructor(props) {
     super(props);
     this.state = {
-       chatMessage: "",
-       chatMessages: []
+       message: "",
+       messages: [],
+       users: []
     };
   
  }
  componentDidMount() {
-  this.socket = io("http://491fe7996c55.ngrok.io");
-  console.log(this.socket)
+  this.socket = io("https://9b20608851bd.ngrok.io");
   
-   this.socket.on("chat message", msg => {
-         this.setState({ chatMessages: [...this.state.chatMessages, msg]   
-    });
- });
-}
-submitChatMessage=()=> {
-  // console.log("this.state.chatMessage")
-  // console.log(this.state.chatMessage);
-  io.on("http://491fe7996c55.ngrok.io", socket => {
-    console.log("a user connected :D");
-    socket.on("chat message", msg => {
-      console.log(this.state.chatMessage);
-      io.emit("chat message", this.state.chatMessage);
-    });
+  const  name  = 'zeeshan';
+  const  room  = 'test';
+  this.socket.emit('join', { name, room }, (error) => {
+    if(error) {
+      alert(error);
+    }
   });
-  this.socket.emit('chat message', this.state.chatMessage);
+  
+  this.socket.on("message", msg => {
+    this.setState({ messages: [...this.state.messages, msg]   
+});
+});
+//   this.socket.on("roomData", ({ users }) => {
+//     this.setState({users});
+//   });
+}
+submitmessage=()=> {
+  console.log(this.state.message);
+  this.socket.emit('sendMessage', this.state.message, () => this.setState({message: ''}));
 
-  this.setState({chatMessage: ''});
 }
   render() {
-    const chatMessages = this.state.chatMessages.map(chatMessage => (
-      <Text>{chatMessage}</Text>
-    ));
+    console.log(this.state.messages)
+ 
+
     return (
 
 <View style={styles.container}>
-        {chatMessages}
+{this.state.messages.length > 0 ? 
+  this.state.messages.map(message => (
+        <Text>{message.text}</Text>
+      ))
+       : null}
+        
         <TextInput
           style={{height: 40, borderWidth: 2, top: 600}}
           autoCorrect={false}
-          value={this.state.chatMessage}
-          onSubmitEditing={() => this.submitChatMessage()}
-          onChangeText={chatMessage => {
-            this.setState({chatMessage});
+          value={this.state.message}
+          onSubmitEditing={() => this.submitmessage()}
+          onChangeText={message => {
+            this.setState({message});
           }}
         />
       </View>
@@ -89,12 +96,10 @@ submitChatMessage=()=> {
 }
 const styles = StyleSheet.create({
   container: {
-    height: 400,
     flex: 1,
     backgroundColor: '#F5FCFF',
   },
 });
-
 
 
 

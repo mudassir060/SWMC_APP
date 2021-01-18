@@ -16,7 +16,6 @@ import {
   image
 } from "react-native";
 import Footer from './Footer';
-import queryString from 'query-string';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Constants from "expo-constants";
 // import { TextField } from "react-native-material-textfield";

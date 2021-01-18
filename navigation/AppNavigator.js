@@ -23,9 +23,8 @@ const Stack = createStackNavigator();
 export default function AppNavigator() {
   return (
     <NavigationContainer>
-    <Stack.Navigator initialRouteName="ChatScreenTesting" headerMode={"none"}>
+    <Stack.Navigator initialRouteName="Messages" headerMode={"none"}>
     <Stack.Screen name="ChatScreenTesting" component={ChatScreenTesting}  />
-
       <Stack.Screen name="Login" component={Login}  />
       <Stack.Screen name="Chat" component={Chat}  />
       <Stack.Screen name="Home" component={Home}  />

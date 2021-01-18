@@ -16,6 +16,7 @@ import {
   image
 } from "react-native";
 import Footer from './Footer';
+import { LinearGradient } from 'expo-linear-gradient';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import Constants from "expo-constants";
@@ -299,11 +300,12 @@ backImage = () => {
  
     return (
       
+ 
 
-
-<View style={{flex:1,backgroundColor:"#000"}}>
+<LinearGradient style={{flex:1}} colors={['#f7bb97','#dd5e89' ]}>
+<ImageBackground source={require("../assets/images/bcgrnd.png")} imageStyle={{resizeMode:"cover", overlayColor:"grey"}} style={{flex:1 }}>
 <ScrollView>
-    <View style={{flex:1,paddingTop:10}}>
+    <View style={{flex:1}}>
 
     <BaseHeader
          navigation={this.props.navigation}
@@ -372,8 +374,8 @@ backImage = () => {
                
                </View>
               */}
-              <View style={{  }}>
-                            <TouchableOpacity style={{borderRadius:20,borderWidth:1,borderColor:"grey",padding:5,backgroundColor:"#A5E8F9"}} onPress={() => this.pickImage()}>
+              <View style={{marginTop:25  }}>
+                            <TouchableOpacity style={{borderRadius:20,borderWidth:1,borderColor:"grey",padding:5,backgroundColor:"#fff",marginTop:10}} onPress={() => this.pickImage()}>
                                 <Text>Choose Image</Text>
                             </TouchableOpacity>
                             {this.state.user_avatar? (<Image source={{ uri: this.state.user_avatar }} style={{width:80, height: 80,borderRadius:50,marginTop:10 }} />):null }
@@ -382,14 +384,14 @@ backImage = () => {
 
              </View>
              </View>
-             <View style={{paddingHorizontal:25,paddingBottom:200}}>
+             <View style={{paddingHorizontal:25,paddingBottom:100}}>
             
        
-             <View style={{ width: "95%", justifyContent: "center", alignContent: "center",marginTop:20,borderWidth:2,borderColor:"#A5E8F9",paddingTop:5,paddingBottom:5 }}>
+             <View style={{ width: "95%", justifyContent: "center", alignContent: "center",marginTop:25,borderWidth:2,borderColor:"#fff",paddingTop:5,paddingBottom:5,borderRadius:8,backgroundColor: 'rgba(238,238,238,0.2)' }}>
                 <TextInput
-                  style={{ fontSize: 20,paddingHorizontal:10 ,fontWeight:"bold",color:"#fff"}}
+                  style={{ fontSize: 15,paddingHorizontal:10 ,fontWeight:"bold",color:"#fff"}}
                   placeholder="Full Name"
-                  placeholderTextColor="#A6B1F3"
+                  placeholderTextColor="#fff"
                   onChangeText={(name) => {
                     this.setState({name});
                     // this.getSearchedAnimals();
@@ -401,11 +403,11 @@ backImage = () => {
                 <View>
                   <Text style={{color:"red"}}>{this.state.name_err}</Text>
                 </View>
-                <View style={{ width: "95%", justifyContent: "center", alignContent: "center",marginTop:5,borderWidth:2,borderColor:"#A5E8F9",paddingTop:5,paddingBottom:5 }}>
+                <View style={{ width: "95%", justifyContent: "center", alignContent: "center",marginTop:15,borderWidth:2,borderColor:"#fff",paddingTop:5,paddingBottom:5,borderRadius:8,backgroundColor: 'rgba(238,238,238,0.2)'}}>
                 <TextInput
-                  style={{ fontSize: 20,paddingHorizontal:10,fontWeight:"bold",color:"#fff" }}
+                  style={{ fontSize: 15,paddingHorizontal:10,fontWeight:"bold",color:"#fff" }}
                   placeholder="Email Address"
-                  placeholderTextColor="#A6B1F3"
+                  placeholderTextColor="#fff"
                   onChangeText={(email) => {
                     this.setState({email});
                     // this.getSearchedAnimals();
@@ -433,21 +435,22 @@ backImage = () => {
              <View style={{ width: "95%",marginTop:20}}>
                <View
                  style={{
-                  
+                  backgroundColor: 'rgba(238,238,238,0.2)',
                    borderWidth: 0.8,
              
                    borderColor: "#808080",
                    padding: 0,
                    marginTop: 10,
-                   backgroundColor:"#B2ECFA"
+                
                  }}
                >
                  <Picker
                    mode="dropdown"
-                   style={{ width: undefined, height: 40 }}
+                  
+                   style={{ width: undefined, height: 40,color:"#fff" }}
                    placeholder="how we can help you ?"
                    placeholderStyle={{ }}
-                   placeholderIconColor="#003cff"
+                   placeholderIconColor="#fff"
                    textStyle={{fontSize: 12}}
                    selectedValue={this.state.department}
                    onValueChange={this.onDepartmentSelect.bind(this)}
@@ -468,10 +471,11 @@ backImage = () => {
                <Text style={{color:"#00ACD9"}}>{this.state.department_err}</Text>
               
              </View>
-             <View style={{ width: "100%",paddingLeft:"auto",marginLeft:90,marginTop:10}}>
+             <View style={{ width: "100%",marginTop:100,alignItems:"center",alignContent:"center"}}>
           
-               <TouchableOpacity onPress={() => this.submit()} >
-                <Image style={{width:150,height:50 }} source={require('../assets/images/enter.png')} />
+               <TouchableOpacity  style={styles.login_button} onPress={() => this.submit()} >
+               <Text style={{ color: '#eb7b65',fontSize:20 }}>Login</Text>
+                {/* <Image style={{width:150,height:50 }} source={require('../assets/images/enter_image.png')} /> */}
                 </TouchableOpacity>
 
 
@@ -491,10 +495,17 @@ backImage = () => {
     </View>
     </ScrollView>
    
-    <Footer title={"Login"} back={false} navigation={this.props.navigation} /> 
+    {/* <Footer title={"Login"} back={false} navigation={this.props.navigation} />  */}
    
    
-</View>
+
+    </ImageBackground>
+
+
+
+</LinearGradient>
+
+
 
 
 
@@ -539,6 +550,15 @@ const styles = StyleSheet.create({
 
 
 
+  },
+  login_button: {
+    width: "95%",
+    paddingVertical: 10,
+    alignItems: "center",
+    alignContent: "center",
+
+    backgroundColor: "#fff",
+    borderRadius: 10,
   },
  
 })

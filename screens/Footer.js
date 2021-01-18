@@ -53,76 +53,77 @@ export default class Footer extends Component {
   }
   render(){
     return (
-        <View style={{width:"100%",position: "absolute", bottom: 0,zIndex:10,}}>
-           <View style={{width:"100%",height:125}}>
-           <LinearGradient style={{width: "100%",height:190,flexDirection: "row",
-              borderTopColor: '#D1D1D1',borderTopLeftRadius:300,borderTopRightRadius:300}}
-            colors={['#f7bb97','#dd5e89' ]}>
+      <View style={{ width: "100%", position: "absolute", bottom: 10,zIndex:0,alignItems:"center",alignContent:"center" }}>
+      <View style={{width:"80%", flexDirection: "row", backgroundColor: '#FEFEFE',borderTopWidth :1, borderTopColor: '#D1D1D1',paddingVertical:1,paddingHorizontal:5,borderBottomLeftRadius:15,borderTopRightRadius:15}}>
+      <View style={styles.icon}>
+        <TouchableOpacity style={{ width: "100%",alignItems:"center",backgroundColor:this.props.title=="profile"? "#FAF1EF":"#fff",borderBottomLeftRadius:15 }} onPress={() => this.props.navigation.navigate('profile')} >
          
-           
-   
-  
-  
-           
-            </LinearGradient>
-             </View>
-            <View style={{position:"absolute",bottom:30,zIndex:100,left:60}}>
-  <TouchableOpacity style={{ width: 30, height:20,alignItems:"center"}} onPress={() => this.props.navigation.navigate('profile')} >
-  
-             {/* <Image style={{width:22, height:22,resizeMode:"cover"}} source={require('../assets/images/profile.jpg')}/> */}
-             <Octicons name="person" size={24} color="#fff" />
+         <View style={{width:"100%",paddingTop:10,paddingBottom:5,alignItems:"center" }}>
+         <View>
+         <Octicons name="person" size={24} color={this.props.title == "profile" ? "#E4717D" : "#B1B1B1"} />
+          </View>
+          <Text style={{ color: this.props.title == "profile" ? "#E4717D" : "#B1B1B1",textAlign:"center",marginTop:2 }} >Profile </Text>
+       
+         </View>
+          </TouchableOpacity>
 
-                  
-              </TouchableOpacity>
-  </View>
-            <View style={{position:"absolute",bottom:20,zIndex:100,right:60}}>
-  <TouchableOpacity style={{ width: 30, height:30,alignItems:"center" }}
-  onPress={() => this.props.navigation.navigate('Messages')}
-   
-  //  onPress={() => this.props.navigation.navigate('Chat')} 
-   >
-   <Image style={{width:25, height:25,resizeMode:"cover"}} source={require('../assets/images/chat.png')}/>
-                  
-              </TouchableOpacity>
-  </View>
-            <View style={{position:"absolute",bottom:90,zIndex:100,left:screenWidth/2,}}>
-            
-  <TouchableOpacity style={{ width: "80%",alignItems:"center", }} onPress={() => this.goToChat()}  >
-              
-             <View style={{width:"95%",paddingtop:10,alignItems:"center",paddingRight:80}} >
-              <Image style={{width:36, height:36,resizeMode:"cover"}} source={require('../assets/images/chatbox.png')}/>
-            
-                </View> 
-              </TouchableOpacity>
-  </View>
-             
-          
-     
-              </View>
-          
+      </View>
       
-    );
-  }
-  
+      <View style={styles.icon}>
+        <TouchableOpacity style={{ width: "100%",alignItems:"center",backgroundColor:this.props.title=="Messages"? "#FAF1EF":"#fff" }} onPress={() => this.props.navigation.navigate('Messages')}>
+        <View style={{width:"95%",paddingTop:10,paddingBottom:5,alignItems:"center"}}>
+        <View>
+      
+        <Entypo name="chat" size={24} color={this.props.title == "Messages" ? "#E4717D" : "#B1B1B1"} />
+          </View>
+          <Text style={{ color: this.props.title == "Messages" ? "#E4717D" : "#B1B1B1",textAlign:"center", }} >Messages </Text>
+          </View>   
+          
+        </TouchableOpacity>
+
+      </View>
+      <View style={styles.icon}>
+        <TouchableOpacity style={{ width: "100%",alignItems:"center",backgroundColor:this.props.title=="Chat"? "#FAF1EF":"#fff",borderTopRightRadius:15  }} onPress={() => this.props.navigation.navigate('Chat')}>
+          
+        <View style={{width:"95%",paddingTop:10,paddingBottom:5,alignItems:"center"}}>
+        <View >
+         <MaterialIcons name="chat-bubble-outline" size={24} color={this.props.title == "Chat" ? "#E4717D" : "#B1B1B1"}/>
+          </View>
+          <Text style={{ color: this.props.title == "Chat" ? "#E4717D" : "#B1B1B1",textAlign:"center",marginTop:1 }} >Chat </Text>
+          </View>  
+        </TouchableOpacity>
+
+      </View>
+   
+
+      </View>
+    
+    
+   
+      </View>
+ 
+    
+);
+}
+
 }
 const styles = StyleSheet.create({
 icon: {
 
-  width: "30%",
-  height:"100%",
-  alignItems: "center",
-  marginTop:"auto"
-//   marginBottom:-100
- 
-  
+width: "33%",
+alignItems: "center",
+justifyContent: "center",
+
+
+
 
 },
-Qricon: {
+searchicon: {
 
-  width: "40%",
-  alignItems: "center",
-  justifyContent: "center",
-    
+width: "24%",
+alignItems: "center",
+justifyContent: "center",
+
 
 },
-}) 
+})

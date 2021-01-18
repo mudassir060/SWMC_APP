@@ -18,6 +18,8 @@ import * as Permissions from "expo-permissions";
 import * as ImagePicker from 'expo-image-picker';
 import Footer from './Footer';
 import moment from 'moment';
+import { LinearGradient } from 'expo-linear-gradient';
+
 var deviceHeight = Dimensions.get("window").height;
 var deviceWidth = Dimensions.get("window").width;
 
@@ -422,7 +424,7 @@ this.setState({
 <View style={{flex:1,backgroundColor:"#000"}}>
 <View style={{ alignItems: 'center' }}>
           {/* <HeaderScreen title={"Search Display"} filter={true} back={true} navigation={this.props.navigation} /> */}
-          <View style={{width:"100%",marginTop:50, borderBottomWidth: 1, paddingBottom:10, borderBottomColor: "#A3A3A3",flexDirection:"row"}}>
+          <View style={{width:"100%",marginTop:50, paddingBottom:10, borderBottomColor: "#A3A3A3",flexDirection:"row"}}>
 
           {/* <TouchableOpacity style={{ width: "20%",alignItems:"center",marginTop:5}}onPress={() =>this.props.navigation.navigate('start')}>
                   <Entypo name="chevron-thin-left" size={24} color="#2F368E" />
@@ -449,37 +451,66 @@ this.setState({
                   value={this.state.search_text}
                 />
                 </View>  */}
-          <ScrollView>
-
-
-            <View style={{ width: "100%", flexDirection: "row", marginTop: 10, borderColor: "#DBDBDB", borderBottomWidth: 1, paddingBottom: 15 }}>
-              <TouchableOpacity style={{ width: "20%", alignItems: "center" }}>
+         
+          <LinearGradient style={{width:"100%",height:"100%",borderTopRightRadius:35}} colors={['#f7bb97','#dd5e89' ]}>
+          <ScrollView  style={{}}>
+          <View style={{ width: "100%", flexDirection: "row", marginTop: 20, }}>
+              <TouchableOpacity style={{ width: "20%", alignItems: "center",borderTopRightRadius:15 }}>
                 <View style={{ width: "90%", paddingLeft: 10 }}>
                   <Image style={styles.box} source={{uri:this.state.user_image}} />
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity style={{ width: "60%"}}>
+              <TouchableOpacity style={{ width: "60%", borderColor: "#DBDBDB", borderBottomWidth: 1,paddingBottom:2 }}>
              
-                  <View style={{ }}>
-                    <Text style={{ fontSize: 20, color: "#fff", fontWeight: "bold" }}> {this.state.user_name}</Text>
+                  <View style={{paddingHorizontal:8,paddingTop:5}}>
+                    <Text style={{ fontSize: 20, color: "#fff", fontWeight: "bold" }}> Jane</Text>
                   </View>
-                  <View style={{  paddingTop: 5, paddingLeft: 5 }}>
-                    <Text style={{ fontSize: 16, color: "#fff",fontWeight:"bold" }}>Hey!Wanna Cath up for movie  ?</Text>
+                  <View style={{  paddingTop: 5,paddingHorizontal:10}}>
+                    <Text style={{ fontSize: 14, color: "#fff",fontWeight:"bold" }}>Hey!Wanna Cath up for movie  ?</Text>
                   </View>
                   </TouchableOpacity>
                
-                <View style={{width:"20%" }}>
-                <View style={{ width: "100%",paddingTop:5 }}>
-                    <Text style={{ fontSize: 13, color: "fff" }}> 2 hours ago </Text>
+                <View style={{width:"20%",alignItems:"center",alignContent:"center", borderColor: "#DBDBDB", borderBottomWidth: 1,paddingBottom:15 }}>
+                <View style={{ width: "100%",paddingTop:28 }}>
+                    <Text style={{ fontSize: 13, color: "#fff" }}> 2 hours ago </Text>
                   </View>
-                  <View style={{ paddingTop:2,marginLeft:"auto",paddingRight:20}}>
+                  {/* <View style={{ paddingTop:2,marginLeft:"auto",paddingRight:20}}>
                     <Octicons name="primitive-dot" size={24} color="#fff" />
+                  </View> */}
+                </View>
+             </View>  
+             <View style={{ width: "100%", flexDirection: "row", marginTop: 20, }}>
+              <TouchableOpacity style={{ width: "20%", alignItems: "center",borderTopRightRadius:15 }}>
+                <View style={{ width: "90%", paddingLeft: 10 }}>
+                  <Image style={styles.box} source={{uri:this.state.user_image}} />
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity style={{ width: "60%", borderColor: "#DBDBDB", borderBottomWidth: 1,paddingBottom:2 }}>
+             
+                  <View style={{paddingHorizontal:8,paddingTop:5}}>
+                    <Text style={{ fontSize: 20, color: "#fff", fontWeight: "bold" }}> Jane</Text>
                   </View>
+                  <View style={{  paddingTop: 5,paddingHorizontal:10}}>
+                    <Text style={{ fontSize: 14, color: "#fff",fontWeight:"bold" }}>Hey!Wanna Cath up for movie  ?</Text>
+                  </View>
+                  </TouchableOpacity>
+               
+                <View style={{width:"20%",alignItems:"center",alignContent:"center", borderColor: "#DBDBDB", borderBottomWidth: 1,paddingBottom:15 }}>
+                <View style={{ width: "100%",paddingTop:28 }}>
+                    <Text style={{ fontSize: 13, color: "#fff" }}> 2 hours ago </Text>
+                  </View>
+                  {/* <View style={{ paddingTop:2,marginLeft:"auto",paddingRight:20}}>
+                    <Octicons name="primitive-dot" size={24} color="#fff" />
+                  </View> */}
                 </View>
              </View>
             
+</ScrollView>
+          </LinearGradient>
+
+           
             
-          </ScrollView>
+          
 
          
 
@@ -519,7 +550,7 @@ const styles = StyleSheet.create({
     height: 60,
     resizeMode: "cover",
     borderRadius: 80
-
+    ,borderWidth:3,borderColor:"#fff"
 
 
   },

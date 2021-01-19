@@ -428,8 +428,11 @@ this.setState({
     return (
 <View style={{ flex:1, alignItems: "center",backgroundColor:"#fff",paddingTop:25  }}>
 <ScrollView style={{width:"100%"}}>
-<View style={{width:"100%",marginVertical:20,alignContent:"center",alignItems:"center",}}>
-<Image style={{ width: "50%", height: 180, resizeMode:"stretch",borderRadius:50,borderWidth:3,borderColor:"#f7bb97" }} source={{ uri: this.state.user_image }} />
+<View style={{width:"100%",marginVertical:20,alignContent:"center",alignItems:"center"}}>
+<View style={{
+  }}>
+<Image style={styles.box} source={{ uri: this.state.user_image }} />
+</View>
 </View>
 
 
@@ -496,7 +499,7 @@ this.setState({
         </View>
          
         </View>
-        <View style={{ width: "100%", alignItems: "center", alignContent: "center",marginTop:20}}>
+        {/* <View style={{ width: "100%", alignItems: "center", alignContent: "center",marginTop:20}}>
         <View style={{ width: "80%", flexDirection:"row",paddingVertical:6,borderWidth:2,borderColor:"#fff",borderRadius:8,backgroundColor: 'rgba(238,238,238,0.2)'}}>
         
           <View style={{ width: "100%",paddingHorizontal:10,justifyContent:"center"}}>
@@ -508,13 +511,11 @@ this.setState({
                         onChangeText={(phone)=>this.setState({phone})}
                         placeholder="Please enter your address"
                                    />
-          {/* <Text style={{fontWeight:"bold",fontSize:17}}>
-              {this.state.user_data.address}
-</Text> */}
+      
           </View>
         </View>
          
-        </View>
+        </View> */}
 
 
 
@@ -556,5 +557,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#228360",
     borderRadius: 50,
+  },
+  box: {
+
+    width: 150,
+    height: 150,
+    resizeMode: "cover",
+    borderRadius: 80
+    ,borderWidth:3,borderColor:"#f7bb97"
+
+
   },
 });

@@ -17,6 +17,8 @@ import {
   TextInput,
   Keyboard
 } from "react-native";
+import Footer1 from './Footer1';
+
 import moment from 'moment';
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -440,15 +442,15 @@ export default class Chat extends Component {
                   value={this.state.search_text}
                 />
                 </View>  */}
-        <View style={{ width: "100%", flexDirection: "row", borderColor: "#DBDBDB", paddingBottom: 5, backgroundColor: "#000", paddingTop: 30 }}>
-          <TouchableOpacity style={{ width: "10%", marginHorizontal: 10, marginTop: 10  }} onPress={() => this.props.navigation.navigate('Messages')}>
-            <Entypo name="chevron-thin-left" size={24} color="#fff" />
+        <View style={{ width: "100%", flexDirection: "row", borderColor: "#DBDBDB", backgroundColor: "#000", paddingTop: 30 }}>
+          <TouchableOpacity style={{ width: "10%", marginLeft:20, marginTop: 10  }} onPress={() => this.props.navigation.navigate('profile')}>
+          <Entypo name="home" size={24} color="#fff" />
           </TouchableOpacity>
           <TouchableOpacity style={{ width: "70%", alignItems: "center", paddingBottom: 20 }}>
             {this.state.user_image ? (
-              <View style={{borderWidth:3,borderColor:"#fff"}}>
+              <View style={{width:"25%"  ,borderRadius: 50,borderWidth:2,borderColor:"#fff"}}>
                 {/* <Image style={{width:40,height:40,borderRadius:100}} source={require('../assets/profile.png')} /> */}
-                <Image style={{  width: "100%",height: 60, borderRadius: 100 ,}} source={{ uri: this.state.user_image }} />
+                <Image style={styles.box} source={{ uri: this.state.user_image }} />
               </View>
             ) : null}
             <View style={{}}>
@@ -593,7 +595,7 @@ export default class Chat extends Component {
                 )}
             </View>
           </ScrollView>
-          <View style={{ width: "100%", flexDirection: "row", marginBottom: Constants.platform.ios ? this.state.keyboardHeight : 0,paddingBottom:60 }}>
+          <View style={{ width: "100%", flexDirection: "row", marginBottom: Constants.platform.ios ? this.state.keyboardHeight : 0,paddingBottom:80 }}>
             <View style={{ width: "88%", backgroundColor: "#FFf", borderRadius: 50, flexDirection: "row", marginLeft: 8, paddingVertical: 8, }}>
               <View style={{ width: "80%" }}>
                 {this.state.show_loan ? (
@@ -651,7 +653,7 @@ export default class Chat extends Component {
           */}
 
             {this.state.showPopup ? (
-              <View style={{ width: deviceWidth, backgroundColor: "#fff", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderTopColor: "#80080", position: "absolute", bottom: 0 }}>
+              <View style={{ width: deviceWidth, backgroundColor: "#fff", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderTopColor: "#80080", position: "absolute", bottom: 80 }}>
                 <TouchableOpacity onPress={this._pickImage} style={{ width: "100%", alignContent: "center", alignItems: "center", borderBottomColor: "#808080", borderBottomWidth: 0.8, paddingVertical: 10 }}>
                   <Text style={{ fontSize: 22 }}>Gallery</Text>
                 </TouchableOpacity>
@@ -673,6 +675,7 @@ export default class Chat extends Component {
             
           </View>
         </Modal> */}
+        {/* <Footer1 title={"Chat"} navigation={this.props.navigation} /> */}
 
           </View>
 
@@ -704,7 +707,11 @@ const styles = StyleSheet.create({
   },
   box: {
 
-
+    width: "100%",
+    height: 60,
+    resizeMode: "cover",
+    borderRadius: 80
+    ,borderWidth:2,borderColor:"#f7bb97"
 
 
   },

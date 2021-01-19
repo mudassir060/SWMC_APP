@@ -76,7 +76,7 @@ export default class Footer extends Component {
       
         <Entypo name="chat" size={24} color={this.props.title == "Messages" ? "#E4717D" : "#B1B1B1"} />
           </View>
-          <Text style={{ color: this.props.title == "Messages" ? "#E4717D" : "#B1B1B1",textAlign:"center", }} >Messages </Text>
+          <Text style={{ color: this.props.title == "Messages" ? "#E4717D" : "#B1B1B1",textAlign:"center", }} >History </Text>
           </View>   
           
         </TouchableOpacity>

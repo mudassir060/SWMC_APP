@@ -18,7 +18,7 @@ import {
   Keyboard
 } from "react-native";
 import Footer1 from './Footer1';
-import io from "socket.io-client";
+
 import moment from 'moment';
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -59,8 +59,7 @@ export default class Chat extends Component {
       messages: [],
       ip: "",
       departments_data: [],
-      users: [],
-      message: "",
+      message_text: "",
       keyboardHeight: 0,
       showPopup: false,
       show_loan: false,
@@ -78,38 +77,39 @@ export default class Chat extends Component {
       const val = JSON.parse(user_data);
 
       if (val) {
-        // console.log("val========================================================");
-        // console.log(val);
+        console.log("val========================================================");
+        console.log(val);
         this.setState({
           user_name: val.user_name,
           chat_id: val.chat_id,
           user_id: val.user_id
         });
         this.state.user_name = val.user_name;
-        this.socket = io("https://swmc-be.herokuapp.com");
-  
-    const  name  = val.user_name;
-    const  room  = 'test';
-    this.socket.emit('join', { name, room }, (error) => {
-      if(error) {
-        alert(error);
-      }
-    });
-    
-    this.socket.on("message", msg => {
-      this.setState({ messages: [...this.state.messages, msg]   
-  });
-  });
-       
+        // console.log(val.user_id)
+        fetch(URL + "update-login", {
+          method: "POST",
+          body: JSON.stringify({
+            userID: val.user_id,
+          }),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+          .then(res => res.json())
+          .then(async response => {
+            //  console.log("Response =>");
+            //  console.log(response);
+          })
+          .catch(error => console.log("Please Check Your Internet Connection"));
       }
     });
     AsyncStorage.getItem("user_image").then(image => {
       const val_image = JSON.parse(image);
 
       if (val_image) {
-        // console.log("val========================================================");
-        // console.log(val_image);
-        // console.log("val========================================================");
+        console.log("val========================================================");
+        console.log(val_image);
+        console.log("val========================================================");
         this.setState({
           user_image: val_image
         });
@@ -125,8 +125,21 @@ export default class Chat extends Component {
       'keyboardDidHide',
       this._keyboardDidHide,
     );
+    clearInterval(this.interval);
+    publicIP()
+      .then(ip => {
+        // console.log(ip);
+        this.setState({ ip: ip })
+        // '47.122.71.234'
+      })
+      .catch(error => {
+        console.log(error);
+        // 'Unable to get IP address.'
+      });
     this.getPermissionAsync();
     this.getCameraPermissionAsync();
+    this.interval = setInterval(() => this.getChat(), 1000);
+
 
   }
   getPermissionAsync = async () => {
@@ -176,8 +189,8 @@ export default class Chat extends Component {
         })
           .then(res => res.json())
           .then(async response => {
-            // // console.log("Send Image")
-            // // console.log(response)
+            // console.log("Send Image")
+            // console.log(response)
             if (response.response == "success") {
               this.toggleLoaderModal();
             } else {
@@ -191,17 +204,17 @@ export default class Chat extends Component {
           })
           .catch(error => {
             this.toggleLoaderModal();
-            // console.log("Please Check Your Internet Connection");
+            console.log("Please Check Your Internet Connection");
 
           });
       }
 
-      // // console.log(result);
+      // console.log(result);
 
 
 
     } catch (E) {
-      // console.log(E);
+      console.log(E);
     }
   };
   _scanImage = async () => {
@@ -230,8 +243,8 @@ export default class Chat extends Component {
         })
           .then(res => res.json())
           .then(async response => {
-            // // console.log("Send Image")
-            // // console.log(response)
+            // console.log("Send Image")
+            // console.log(response)
             if (response.response == "success") {
               this.toggleLoaderModal();
               Alert.alert("Success", "File sent successfully.", [{ text: "OK" }], {
@@ -247,12 +260,12 @@ export default class Chat extends Component {
           })
           .catch(error => {
             this.toggleLoaderModal();
-            // console.log("Please Check Your Internet Connection");
+            console.log("Please Check Your Internet Connection");
 
           });
       }
 
-      // // console.log(result);
+      // console.log(result);
 
     } catch (E) {
       alert(e);
@@ -264,15 +277,85 @@ export default class Chat extends Component {
   }
 
   getChat = () => {
-    
-   
+    // console.log("user Data");
+    // console.log(this.state.user_data);
+    fetch(URL + "get-messages", {
+      method: "POST",
+      body: JSON.stringify({
+        "chatID": this.state.chat_id,
+        // "chatID" : this.state.user_data.chat_id,
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(res => res.json())
+      .then(async response => {
+        console.log("Response =>===================================");
+        console.log(response);
+        if (response.response == "success") {
+          // console.log("Chat Messages")
+          // console.log(response)
+          this.setState({ messages: response.data })
+
+        } else {
+          Alert.alert("Sorry", response.message, [{ text: "OK" }], {
+            cancelable: true
+          });
+          this.setState({ isLoading: false });
+        }
+      })
+      .catch(error => {
+        console.log("Please Check Your Internet Connection");
+        this.setState({ isLoading: false });
+      });
   }
-  
-  submitmessage = () => {
-    if (this.state.message != "") {
-        // console.log(this.state.message);
-        this.socket.emit('sendMessage', this.state.message, () => this.setState({message: ''}));
-    
+  sendMessage = () => {
+    if (this.state.message_text != "") {
+      this.toggleLoaderModal();
+      console.log("chat_id")
+      console.log(this.state.chat_id)
+      console.log("user_id")
+      console.log(this.state.user_id)
+      console.log("message_text")
+      console.log(this.state.message_text)
+      console.log("ip")
+      console.log(this.state.ip)
+
+      fetch(URL + "send-message", {
+        method: "POST",
+        body: JSON.stringify({
+          chatID: this.state.chat_id,
+          userID: this.state.user_id,
+          message: this.state.message_text,
+          ip: this.state.ip
+        }),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+        .then(res => res.json())
+        .then(async response => {
+          console.log("Response =>ojiouhuijniojuoijoiju")
+          if (response.response == "success") {
+            // console.log("Send Messages")
+            // console.log(response)
+            this.setState({ message_text: "" });
+            this.toggleLoaderModal();
+
+          } else {
+            this.toggleLoaderModal();
+            Alert.alert("Sorry", response.message, [{ text: "OK" }], {
+              cancelable: true
+            });
+            this.setState({ isLoading: false });
+          }
+        })
+        .catch(error => {
+          this.toggleLoaderModal();
+          alert("Please Check Your Internet Connection");
+          this.setState({ isLoading: false });
+        });
     }
 
   }
@@ -291,7 +374,7 @@ export default class Chat extends Component {
         },
         {
           text: 'Cancel',
-          onPress: () =>  console.log('Cancel Pressed'),
+          onPress: () => console.log('Cancel Pressed'),
           style: 'cancel',
         }
 
@@ -398,7 +481,16 @@ export default class Chat extends Component {
               {
                 this.state.messages.map((item, index) => {
 
-                  if (item.user != this.state.user_name.toLowerCase()) {
+                  if (item.notify == 1) {
+                    return (
+                      <View key={index} style={{ width: "100%", alignItems: "center", alignContent: "center", paddingVertical: 5 }}>
+                        <View style={{ paddingVertical: 4, paddingHorizontal: 10 }}>
+                          <Text style={{ color: "#fff", fontWeight: "bold" }}>{item.msg}</Text>
+                        </View>
+                      </View>
+                    )
+                  } else {
+                    if (item.user_id == "-1") {
                       if (item.image) {
                         return (
                           <View key={index} style={{ width: "100%", paddingVertical: 10 }}>
@@ -431,11 +523,11 @@ export default class Chat extends Component {
                         return (
 
                           <View key={index} style={{ flexDirection: "row", marginTop: 10 }}>
-                            <ImageBackground style={{width:"auto"}} imageStyle={{ resizeMode: "stretch" }} source={require("../assets/images/grey_bg.png")} >
+                            <ImageBackground imageStyle={{ resizeMode: "stretch" }} source={require("../assets/images/grey_bg.png")} >
 
 
                               <View style={{ width: "70%", padding: 20 }}>
-                                <Text style={{ lineHeight: 26 }}>{item.text}</Text>
+                                <Text style={{ lineHeight: 26 }}>{item.msg}</Text>
                               </View>
 
                             </ImageBackground>
@@ -479,25 +571,26 @@ export default class Chat extends Component {
                             <View style={{ flexDirection: "row-reverse", marginTop: 10, paddingHorizontal: 20 }}>
                               <ImageBackground imageStyle={{ resizeMode: "stretch" }} source={require("../assets/images/blue_bg.png")} style={{ width: "auto" }}>
                                 <View style={{ padding: 10 }}>
-                                  <Text style={{ lineHeight: 26,paddingHorizontal:10 }}>{item.text}</Text>
+                                  <Text style={{ lineHeight: 26,paddingHorizontal:10 }}>{item.msg}</Text>
                                 </View>
                               </ImageBackground>
                               <View style={{ width: "40%" }}>
                               </View>
                             </View>
-                            {/* <View style={{ flexDirection: "row-reverse", marginRight: 20 }}>
+                            <View style={{ flexDirection: "row-reverse", marginRight: 20 }}>
                               <View style={{ padding: 10 }}>
 
                                 <Text style={{ textAlign: "right", fontSize: 12, color: "#fff" }}> {moment(item.date).format("h:m A")} </Text>
                               </View>
                               <View style={{ width: "40%" }}>
                               </View>
-                            </View> */}
+                            </View>
                           </View>
 
                         )
                       }
                     }
+                  }
                }
                 )}
             </View>
@@ -514,9 +607,9 @@ export default class Chat extends Component {
                     placeholder={"Loan Number"}
                     placeholderTextColor="#AEAEAE"
                     onChangeText={(search) => {
-                      this.setState({ message: search });
+                      this.setState({ message_text: search });
                     }}
-                    value={this.state.message}
+                    value={this.state.message_text}
                   />
                 ) : (
                     <TextInput
@@ -527,9 +620,9 @@ export default class Chat extends Component {
                       placeholder={"Type your message here..."}
                       placeholderTextColor="#AEAEAE"
                       onChangeText={(search) => {
-                        this.setState({ message: search });
+                        this.setState({ message_text: search });
                       }}
-                      value={this.state.message}
+                      value={this.state.message_text}
                     />
                   )}
               </View>
@@ -537,13 +630,13 @@ export default class Chat extends Component {
                 <Entypo name="attachment" size={20} color="#C7C7C7" />
               </TouchableOpacity>
 
-              <TouchableOpacity style={{ width: "10%", marginTop: 6 }} onPress={() => this.submitmessage()}>
+              <TouchableOpacity style={{ width: "10%", marginTop: 6 }} onPress={() => this.sendMessage()}>
                 <MaterialIcons style={{}} name="send" size={20} color="#C7C7C7" />
               </TouchableOpacity>
 
             </View>
             <TouchableOpacity style={{ width: "12%", marginTop: 10, marginHorizontal: 5, borderRadius: 100, borderColor: "black" }} onPress={() => {
-              if (this.state.message == "") {
+              if (this.state.message_text == "") {
                 this.setState({ show_loan: !this.state.show_loan })
               }
 

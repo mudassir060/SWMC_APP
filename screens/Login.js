@@ -225,7 +225,7 @@ backImage = () => {
             console.log(arr)
             // AsyncStorage.setItem("user_image", JSON.stringify(this.state.images[this.state.pointer]));
             this.setState({ isLoading: false });
-            this.props.navigation.push("NewChat")
+            this.props.navigation.push("Chat")
           } else {
             Alert.alert("Sorry", response.message, [{ text: "OK" }], {
               cancelable: true
@@ -270,7 +270,7 @@ backImage = () => {
     const fontColor = "#82a601";
     console.log("---------------")
     console.log("http://swmcapp.com/"+this.state.images[this.state.pointer])
-    let image_path=""
+    let image_path="";
     let image_uri="";
      image_uri=this.state.images[this.state.pointer]
      if(image_uri){

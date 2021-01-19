@@ -43,9 +43,9 @@ export default class ChatScreenTesting extends Component {
   
  }
  componentDidMount() {
-  this.socket = io("https://9b20608851bd.ngrok.io");
+  this.socket = io("https://swmc-be.herokuapp.com");
   
-  const  name  = 'zeeshan';
+  const  name  = 'Qwerty';
   const  room  = 'test';
   this.socket.emit('join', { name, room }, (error) => {
     if(error) {

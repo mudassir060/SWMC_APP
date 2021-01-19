@@ -14,6 +14,7 @@ import StartSaved from '../screens/StartSaved';
 import Scrollist from '../screens/Scrollist';
 import Profile from '../screens/Profile';
 import ChatScreenTesting from "../screens/ChatScreenTesting";
+import NewChat from "../screens/NewChat";
 
 
 
@@ -23,10 +24,11 @@ const Stack = createStackNavigator();
 export default function AppNavigator() {
   return (
     <NavigationContainer>
-    <Stack.Navigator initialRouteName="Messages" headerMode={"none"}>
+    <Stack.Navigator initialRouteName="Login" headerMode={"none"}>
     <Stack.Screen name="ChatScreenTesting" component={ChatScreenTesting}  />
       <Stack.Screen name="Login" component={Login}  />
       <Stack.Screen name="Chat" component={Chat}  />
+      <Stack.Screen name="NewChat" component={NewChat}  />
       <Stack.Screen name="Home" component={Home}  />
       <Stack.Screen name="Fields" component={Fields}  />
       <Stack.Screen name="Page" component={Page}  />

@@ -20,7 +20,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import Constants from "expo-constants";
-// import { TextField } from "react-native-material-textfield";
 import { Container, Picker, Content, Button } from "native-base";
 import { URL } from "../components/API";
 import BaseHeader from "../components/BaseHeader";
@@ -28,7 +27,6 @@ import publicIP from 'react-native-public-ip';
 import * as ImagePicker from 'expo-image-picker';
 import { MaterialIcons, Ionicons, EvilIcons, MaterialCommunityIcons, Octicons, Feather, Entypo,AntDesign  } from '@expo/vector-icons';
 
-// import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
 import { TextInput } from "react-native-gesture-handler";
@@ -59,16 +57,13 @@ export default class Login extends Component {
   componentDidMount() {
     publicIP()
     .then(ip => {
-      // console.log(ip);
       this.setState({ip : ip})
-      // '47.122.71.234'
     })
     .catch(error => {
       console.log(error);
-      // 'Unable to get IP address.'
     });
     this.fetchDepartments();
-    this.fetchAvatars();
+    // this.fetchAvatars();
    
   }
  fetchDepartments = () => {
@@ -86,21 +81,21 @@ export default class Login extends Component {
     })
     .catch(error => alert("Please Check Your Internet Connection"));
  }
- fetchAvatars = () => {
-  fetch(URL+"get-avatars", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    }
-  })
-    .then(res => res.json())
-    .then(async response => {
-       console.log("Response =>");
-       console.log(response.data);
-     this.setState({images : response.data, loader:false})
-    })
-    .catch(error => alert("Please Check Your Internet Connection"));
- }
+//  fetchAvatars = () => {
+//   fetch(URL+"get-avatars", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json"
+//     }
+//   })
+//     .then(res => res.json())
+//     .then(async response => {
+//        console.log("Response =>");
+//        console.log(response.data);
+//      this.setState({images : response.data, loader:false})
+//     })
+//     .catch(error => alert("Please Check Your Internet Connection"));
+//  }
   onDepartmentSelect(value) {
     console.log(value);
     var check_selected_array_object = this.state.departments_data.find(
@@ -162,18 +157,10 @@ backImage = () => {
         name_err: ""
       });
     }
-    // if (address == "") {
-    //   this.setState({ address_err: "Required" });
-    // } else {
-    //   this.setState({
-    //     address_err: ""
-    //   });
-    // }
    
     if (email == "") {
       this.setState({ email_err: "Required" });
     } else {
-      // if(email_reg.test(email) === false){
       if(l_email.indexOf("@swmc.com") == -1){
         this.setState({
           email_err: "Invalid Email Address"
@@ -201,7 +188,6 @@ backImage = () => {
         body: JSON.stringify({
           "email" : l_email,
           "name" : name,
-          // "image" : this.state.images[this.state.pointer],
           "image" : this.state.user_avatar,
           "ip" : ip,
           "help" : department,
@@ -239,7 +225,7 @@ backImage = () => {
             console.log(arr)
             // AsyncStorage.setItem("user_image", JSON.stringify(this.state.images[this.state.pointer]));
             this.setState({ isLoading: false });
-            this.props.navigation.push("Chat")
+            this.props.navigation.push("NewChat")
           } else {
             Alert.alert("Sorry", response.message, [{ text: "OK" }], {
               cancelable: true
@@ -329,51 +315,7 @@ backImage = () => {
                  justifyContent: "center"
                }}
              >
-               {/* <View style={{ width: "60%" }}>
-                 <View style={{ flexDirection: "row" }}>
-                   <View
-                     style={{
-                       width: "25%",
-                       height: 80,
-                       justifyContent: "center"
-                     }}
-                   >
-                   <TouchableOpacity 
-                   onPress={this.backImage}>
-
-                     <Image
-                       style={{ width: 25, height: 25, resizeMode: "contain" }}
-                       source={require("../assets/images/back.png")}
-                     />
-                   </TouchableOpacity>
-                   </View>
-                   <View style={{ width: "50%" }}>
-                     <Image
-                       style={{ width: 80, height: 80, resizeMode: "contain" }}
-                       source={{uri:image_path}}
-                      //  source={{uri: this.state.images[this.state.pointer].indexOf("http") == -1? "http://swmcapp.com/"+this.state.images[this.state.pointer] : this.state.images[this.state.pointer]}}
-                     />
-                   </View>
-                   <View
-                     style={{
-                       width: "25%",
-                       height: 80,
-                       justifyContent: "center"
-                     }}
-                   >
-                   <TouchableOpacity
-                   onPress={this.nextImage}>
-
-                     <Image
-                       style={{ width: 25, height: 25, resizeMode: "contain" }}
-                       source={require("../assets/images/next.png")}
-                     />
-                   </TouchableOpacity>
-                   </View>
-                 </View>
                
-               </View>
-              */}
               <View style={{marginTop:25  }}>
                             <TouchableOpacity style={{borderRadius:20,borderWidth:1,borderColor:"grey",padding:5,backgroundColor:"#fff",marginTop:10}} onPress={() => this.pickImage()}>
                                 <Text>Choose Image</Text>
@@ -394,7 +336,6 @@ backImage = () => {
                   placeholderTextColor="#fff"
                   onChangeText={(name) => {
                     this.setState({name});
-                    // this.getSearchedAnimals();
                   }}
                   value={this.state.name}
                 />
@@ -410,25 +351,11 @@ backImage = () => {
                   placeholderTextColor="#fff"
                   onChangeText={(email) => {
                     this.setState({email});
-                    // this.getSearchedAnimals();
                   }}
                   value={this.state.email}
                 />
               
                 </View> 
-                {/* <View style={{ width: "95%", justifyContent: "center", alignContent: "center",marginTop:20,borderWidth:2,borderColor:"#A5E8F9",paddingTop:5,paddingBottom:5 }}>
-                <TextInput
-                  style={{ fontSize: 20,paddingHorizontal:10,fontWeight:"bold" }}
-                  placeholder="Address"
-                  placeholderTextColor="#A6B1F3"
-                  onChangeText={(address) => {
-                    this.setState({address});
-                    // this.getSearchedAnimals();
-                  }}
-                  value={this.state.address}
-                />
-              
-                </View>  */}
                 <View>
                   <Text style={{color:"red"}}>{this.state.email_err}</Text>
                 </View>
@@ -458,7 +385,6 @@ backImage = () => {
                    <Picker.Item label="What can we help you with?" value={0}  />
                    {
                      this.state.departments_data.map((item, index) => {
-                       {/* console.log("id: "+item.id + "..Name: "+ item.name); */}
   return(
    <Picker.Item key={index} label={item.name} value={item.id} />
   )
@@ -475,7 +401,6 @@ backImage = () => {
           
                <TouchableOpacity  style={styles.login_button} onPress={() => this.submit()} >
                <Text style={{ color: '#eb7b65',fontSize:20 }}>Login</Text>
-                {/* <Image style={{width:150,height:50 }} source={require('../assets/images/enter_image.png')} /> */}
                 </TouchableOpacity>
 
 
@@ -495,7 +420,6 @@ backImage = () => {
     </View>
     </ScrollView>
    
-    {/* <Footer title={"Login"} back={false} navigation={this.props.navigation} />  */}
    
    
 

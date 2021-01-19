@@ -41,7 +41,7 @@ export default class App extends Component {
       this.setState({loading:false})
     });
   }
-  async componentWillMount() {
+  async componentDidMount() {
   this.onLoad();
     await Promise.all([
       Asset.loadAsync([

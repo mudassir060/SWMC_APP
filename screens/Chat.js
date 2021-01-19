@@ -395,6 +395,7 @@ export default class Chat extends Component {
         <LinearGradient style={{width:"100%",height:"90%", borderTopLeftRadius: 30,  }} colors={['#f7bb97', '#dd5e89']}>
           <ScrollView style={{  borderTopLeftRadius: 30,  }}>
             <View >
+           
               {
                 this.state.messages.map((item, index) => {
 
@@ -430,15 +431,15 @@ export default class Chat extends Component {
                       } else {
                         return (
 
-                          <View key={index} style={{ flexDirection: "row", marginTop: 10 }}>
-                            <ImageBackground style={{width:"auto"}} imageStyle={{ resizeMode: "stretch" }} source={require("../assets/images/grey_bg.png")} >
+                          <View key={index} style={{ flexDirection: "row", marginTop: 10, paddingLeft:20 }}>
+                          <View style={{ width: "auto", backgroundColor: 'rgba(0,0,0,0.3)', borderTopLeftRadius:10,borderTopRightRadius:10, borderBottomRightRadius:10, borderBottomLeftRadius:3}}>
 
 
                               <View style={{ width: "70%", padding: 20 }}>
-                                <Text style={{ lineHeight: 26 }}>{item.text}</Text>
+                                <Text style={{ lineHeight: 26, color:"#fff" }}>{item.text}</Text>
                               </View>
 
-                            </ImageBackground>
+                            </View>
 
                           </View>
                         )
@@ -477,11 +478,11 @@ export default class Chat extends Component {
                         return (
                           <View key={index} >
                             <View style={{ flexDirection: "row-reverse", marginTop: 10, paddingHorizontal: 20 }}>
-                              <ImageBackground imageStyle={{ resizeMode: "stretch" }} source={require("../assets/images/blue_bg.png")} style={{ width: "auto" }}>
+                            <View style={{ width: "auto", backgroundColor:"#fff", borderTopLeftRadius:10,borderTopRightRadius:10, borderBottomLeftRadius:10, borderBottomRightRadius:3}}>
                                 <View style={{ padding: 10 }}>
                                   <Text style={{ lineHeight: 26,paddingHorizontal:10 }}>{item.text}</Text>
                                 </View>
-                              </ImageBackground>
+                              </View>
                               <View style={{ width: "40%" }}>
                               </View>
                             </View>

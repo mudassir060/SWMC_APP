@@ -457,7 +457,7 @@ export default class Profile extends Component {
             <View style={{ width: "100%", alignItems: "center", alignContent: "center", marginTop: 20 }}>
               {/* <View style={{ marginTop: 5, marginBottom: 10 }}>
 
-                <TouchableOpacity style={{ borderRadius: 20, borderWidth: 1, borderColor: "grey", padding: 5, backgroundColor: "#fff", marginTop: 10 }} onPress={() => this._pickImage()}>
+                <TouchableOpacity style={{ borderRadius: 20, borderWidth: 1, borderColor: "grey",padding: 5, backgroundColor: "#fff", marginTop: 10 }} onPress={() => this._pickImage()}>
                   <Text>Choose Image</Text>
                 </TouchableOpacity>
 

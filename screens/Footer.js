@@ -51,6 +51,8 @@ export default class Footer extends Component {
       });
     }
   }
+    // 8757C7
+
   render(){
     return (
       <View style={{ width: "100%", position: "absolute", bottom: 10,zIndex:0,alignItems:"center",alignContent:"center" }}>

@@ -12,7 +12,7 @@ import {
   Image,
   TouchableOpacity,
   Alert,
-  ActivityIndicator,
+  ActivityIndicator, 
   ScrollView,
   TextInput,
   Keyboard
@@ -336,7 +336,7 @@ export default class Chat extends Component {
     console.log(image_path)
     return (
 
-      <MenuProvider style={{flex:1,backgroundColor:"#010E31"}}>
+      <MenuProvider style={{flex:1,backgroundColor:"#fff"}}>
 
 
         {/* <HeaderScreen title={"Search Display"} filter={true} back={true} navigation={this.props.navigation} /> */}
@@ -345,7 +345,6 @@ export default class Chat extends Component {
         {/* <TouchableOpacity style={{width:"10%",marginLeft:"auto"}}onPress={()=>this.props.navigation.navigate('ChatDashboard')}>
                 <Entypo name="cross" size={24} color="#003cff" />
                 </TouchableOpacity> */}
-
 
 
         {/* <View style={{ width: "90%", justifyContent: "center", alignContent: "center",marginTop:20 }}>
@@ -359,19 +358,21 @@ export default class Chat extends Component {
                   value={this.state.search_text}
                 />
                 </View>  */}
-        <View style={{ width: "100%", flexDirection: "row", borderColor: "#DBDBDB", backgroundColor: "#010E31", paddingTop: 30 }}>
-          <TouchableOpacity style={{ width: "10%", marginLeft:20, marginTop: 10  }} onPress={() => this.props.navigation.navigate('profile')}>
-          <Entypo name="home" size={24} color="#fff" />
+        <View style={{ width: "100%", flexDirection: "row", backgroundColor: "#8757C7", marginTop: 20 ,padding:3}}>
+          <TouchableOpacity style={{ width: "10%", marginLeft:10, marginTop: 10  }} onPress={() => this.props.navigation.navigate('Messages')}>
+          {/* <Entypo name="home" size={24} color="#fff" /> */}
+          <Entypo name="chevron-thin-left" size={24} color="#2F368E" />
+
           </TouchableOpacity>
-          <TouchableOpacity style={{ width: "70%", alignItems: "center", paddingBottom: 20 }}>
+          <TouchableOpacity style={{ width: "70%",alignItems: "center", }}>
             {this.state.user_image ? (
               <View style={{width:"25%"  ,borderRadius: 50,borderWidth:2,borderColor:"#fff"}}>
                 {/* <Image style={{width:40,height:40,borderRadius:100}} source={require('../assets/profile.png')} /> */}
-                <Image style={styles.box} source={{ uri: this.state.user_image }} />
+                {/* <Image style={styles.box} source={{ uri: this.state.user_image }} /> */}
               </View>
             ) : null}
             <View style={{}}>
-              <Text style={{ fontSize: 20, color: "#fff", fontWeight: "bold" }}> {this.state.user_name}</Text>
+              <Text style={{ fontSize: 20, color: "#fff", fontWeight: "bold",padding:10 }}> {this.state.user_name}</Text>
             </View>
           </TouchableOpacity>
 
@@ -392,7 +393,8 @@ export default class Chat extends Component {
             </Menu>
           </TouchableOpacity>
         </View>
-        <LinearGradient style={{width:"100%",height:"90%", borderTopLeftRadius: 30,  }}  colors={['#9733EE', '#1D2B64']}>
+        {/* <LinearGradient style={{width:"100%",height:"90%", borderTopLeftRadius: 30,  }}  colors={['#9733EE', '#1D2B64']}> */}
+      
           <ScrollView style={{  borderTopLeftRadius: 30,  }}>
             <View >
            
@@ -503,7 +505,13 @@ export default class Chat extends Component {
                 )}
             </View>
           </ScrollView>
-          <View style={{ width: "100%", flexDirection: "row", marginBottom: Constants.platform.ios ? this.state.keyboardHeight : 0,paddingBottom:80 }}>
+          <View 
+          style={{ 
+            width: "100%",
+             flexDirection: "row",
+             backgroundColor: "#8757C7", 
+            //  marginBottom: Constants.platform.ios ? this.state.keyboardHeight : 0, 
+             padding:10}}>
             <View style={{ width: "88%", backgroundColor: "#FFf", borderRadius: 50, flexDirection: "row", marginLeft: 8, paddingVertical: 8, }}>
               <View style={{ width: "80%" }}>
                 {this.state.show_loan ? (
@@ -511,8 +519,10 @@ export default class Chat extends Component {
                     key={'input-num'}
                     multiline={false}
                     keyboardType={"number-pad"}
-                    style={{ color: "black", fontSize: 15, paddingHorizontal: 15 }}
-                    placeholder={"Loan Number"}
+                    style={{ color: "black",
+                    
+                     fontSize: 15, paddingHorizontal: 15 }}
+                    // placeholder={"Loan Number"}
                     placeholderTextColor="#AEAEAE"
                     onChangeText={(search) => {
                       this.setState({ message: search });
@@ -588,7 +598,7 @@ export default class Chat extends Component {
           </View>
 
 
-          </LinearGradient>
+          {/* </LinearGradient> */}
         
 
       </MenuProvider>

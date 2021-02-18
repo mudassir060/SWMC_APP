@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet, Picker, Dimensions, ImageBackground, TextInput, AsyncStorage,  Keyboard,  Alert,ScrollView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { MaterialIcons, MaterialCommunityIcons ,Octicons} from '@expo/vector-icons';
+import { MaterialIcons, MaterialCommunityIcons ,Octicons, Entypo} from '@expo/vector-icons';
 import Constants from "expo-constants";
 import { Linking } from 'react-native'
 import TimeAgo from 'react-native-timeago';
@@ -421,16 +421,18 @@ this.setState({
      // console.log("final image_path")
      // console.log(image_path)
     return (
-<View style={{flex:1,backgroundColor:"#010E31", marginTop:22}}>
+<View style={{flex:1,backgroundColor:"#fff", marginTop:22}}>
 <View style={{ alignItems: 'center' }}>
           {/* <HeaderScreen title={"Search Display"} filter={true} back={true} navigation={this.props.navigation} /> */}
-          <View style={{width:"100%",margin:20, paddingBottom:10, borderBottomColor: "#A3A3A3",flexDirection:"row"}}>
+          <View style={{width:"100%", padding:10, backgroundColor:'#8757C7',flexDirection:"row"}}>
 
-          {/* <TouchableOpacity style={{ width: "20%",alignItems:"center",marginTop:5}}onPress={() =>this.props.navigation.navigate('start')}>
+          <TouchableOpacity style={{ alignItems:"center",marginTop:5}}
+          onPress={() =>this.props.navigation.navigate('Messages')}
+          >
                   <Entypo name="chevron-thin-left" size={24} color="#2F368E" />
-                </TouchableOpacity> */}
+                </TouchableOpacity>
                 
-          <View style={{ width: "100%",alignItems:"center" }}>
+          <View style={{ width: "100%",marginLeft:60 }}>
             <Text style={{ color: "#fff", fontSize: 25, fontWeight: "bold" }}>Messages</Text>
           </View>
           </View>
@@ -453,7 +455,8 @@ this.setState({
                 />
                 </View>  */}
          
-          <LinearGradient style={{width:"100%",height:"100%",borderTopRightRadius:35}} colors={['#9733EE', '#1D2B64']}>
+          {/* <LinearGradient style={{width:"100%",height:"100%",borderTopRightRadius:35}} colors={['#9733EE', '#1D2B64']}> */}
+         
           <ScrollView  style={{}}>
           <View style={{ width: "100%", flexDirection: "row", marginTop: 20, }}>
               <TouchableOpacity style={{ width: "20%", alignItems: "center",borderTopRightRadius:15 }}>
@@ -464,16 +467,16 @@ this.setState({
               <TouchableOpacity style={{ width: "60%", borderColor: "#DBDBDB", borderBottomWidth: 1,paddingBottom:2 }}>
              
                   <View style={{paddingHorizontal:8,paddingTop:5}}>
-                    <Text style={{ fontSize: 20, color: "#fff", fontWeight: "bold" }}> Jane</Text>
+                    <Text style={{ fontSize: 20 , fontWeight: "bold" }}> Jane</Text>
                   </View>
                   <View style={{  paddingTop: 5,paddingHorizontal:10}}>
-                    <Text style={{ fontSize: 14, color: "#fff",fontWeight:"bold" }}>Hey!Wanna Cath up for movie  ?</Text>
+                    <Text style={{ fontSize: 14 ,fontWeight:"bold" }}>Hey!Wanna Cath up for movie  ?</Text>
                   </View>
                   </TouchableOpacity>
                
                 <View style={{width:"20%",alignItems:"center",alignContent:"center", borderColor: "#DBDBDB", borderBottomWidth: 1,paddingBottom:15 }}>
                 <View style={{ width: "100%",paddingTop:28 }}>
-                    <Text style={{ fontSize: 13, color: "#fff" }}> 2 hours ago </Text>
+                    <Text style={{ fontSize: 13  }}> 2 hours ago </Text>
                   </View>
                   {/* <View style={{ paddingTop:2,marginLeft:"auto",paddingRight:20}}>
                     <Octicons name="primitive-dot" size={24} color="#fff" />
@@ -489,16 +492,16 @@ this.setState({
               <TouchableOpacity style={{ width: "60%", borderColor: "#DBDBDB", borderBottomWidth: 1,paddingBottom:2 }}>
              
                   <View style={{paddingHorizontal:8,paddingTop:5}}>
-                    <Text style={{ fontSize: 20, color: "#fff", fontWeight: "bold" }}> Jane</Text>
+                    <Text style={{ fontSize: 20 , fontWeight: "bold" }}> Jane</Text>
                   </View>
                   <View style={{  paddingTop: 5,paddingHorizontal:10}}>
-                    <Text style={{ fontSize: 14, color: "#fff",fontWeight:"bold" }}>Hey!Wanna Cath up for movie  ?</Text>
+                    <Text style={{ fontSize: 14 ,fontWeight:"bold" }}>Hey!Wanna Cath up for movie  ?</Text>
                   </View>
                   </TouchableOpacity>
                
                 <View style={{width:"20%",alignItems:"center",alignContent:"center", borderColor: "#DBDBDB", borderBottomWidth: 1,paddingBottom:15 }}>
                 <View style={{ width: "100%",paddingTop:28 }}>
-                    <Text style={{ fontSize: 13, color: "#fff" }}> 2 hours ago </Text>
+                    <Text style={{ fontSize: 13  }}> 2 hours ago </Text>
                   </View>
                   {/* <View style={{ paddingTop:2,marginLeft:"auto",paddingRight:20}}>
                     <Octicons name="primitive-dot" size={24} color="#fff" />
@@ -507,7 +510,8 @@ this.setState({
              </View>
             
 </ScrollView>
-          </LinearGradient>
+         
+          {/* </LinearGradient> */}
 
            
             
@@ -516,9 +520,9 @@ this.setState({
          
 
         </View>
-        
-        <Footer title={"Messages"} back={false} navigation={this.props.navigation} /> 
 
+        <Footer title={"Messages"} BG={"#8757C7"} back={false} navigation={this.props.navigation} /> 
+      
 </View>
 
        
@@ -551,7 +555,7 @@ const styles = StyleSheet.create({
     height: 60,
     resizeMode: "cover",
     borderRadius: 80
-    ,borderWidth:3,borderColor:"#fff"
+    ,borderWidth:3,borderColor:"#000"
 
 
   },

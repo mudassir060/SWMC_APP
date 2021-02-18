@@ -2,8 +2,10 @@ import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import React, { Component } from 'react';
-import { Platform, StatusBar, StyleSheet, View, AsyncStorage, AppRegistry,  TouchableOpacity,
-  Animated, Dimensions, Image } from 'react-native';
+import {
+  Platform, StatusBar, StyleSheet, View, AsyncStorage, AppRegistry, TouchableOpacity,
+  Animated, Dimensions, Image
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import AppNavigator from './navigation/AppNavigator';
 import LoginNavigator from './navigation/LoginNavigator';
@@ -14,9 +16,9 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading : true,
-      loggedIn : false,
-      change:false,
+      loading: true,
+      loggedIn: false,
+      change: false,
       opacity: new Animated.Value(1),
       opacity_other: new Animated.Value(0),
     }
@@ -28,7 +30,7 @@ export default class App extends Component {
       useNativeDriver: true,
     }).start(() => {
       console.log("this")
-      this.setState({change:true});
+      this.setState({ change: true });
       this.onLoad_other();
     });
   }
@@ -38,11 +40,11 @@ export default class App extends Component {
       duration: 3000,
       useNativeDriver: true,
     }).start(() => {
-      this.setState({loading:false})
+      this.setState({ loading: false })
     });
   }
   async componentDidMount() {
-  this.onLoad();
+    this.onLoad();
     await Promise.all([
       Asset.loadAsync([
         require('./assets/images/icon.png'),
@@ -69,72 +71,73 @@ export default class App extends Component {
     ]);
     AsyncStorage.getItem("userID").then(user_data => {
       const val = JSON.parse(user_data);
-      if(val){
-        
+      if (val) {
+
         this.setState({
           loggedIn: true,
         });
       }
-     
+
     });
     // this.setState({ loading: false });
   }
- 
+
 
   render() {
     if (this.state.loading) {
       return (
-        <View style={{width:deviceWidth,height:deviceHeight, alignContent:"center",alignItems:"center", justifyContent:"center"}}>
-<View style={{width:"70%",height:"100%", alignContent:"center", alignItems:"center", justifyContent:"center"}}>
-{this.state.change ? (
-  <Animated.View style={[
-          {
-            opacity: this.state.opacity_other,
-            width:"100%",
-            transform: [
-              {
-                scale: this.state.opacity_other.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [0.85, 1],
-                })
-              },
-            ],
-          }
-        ]}>
-          <Image style={{width:"100%", resizeMode:"contain"}} source={require('./assets/images/Brandmark2.png')} />
-        </Animated.View>
-) : (
-  <Animated.View style={[
-          {
-            opacity: this.state.opacity,
-            width:"100%",
-            transform: [
-              {
-                scale: this.state.opacity.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [0.85, 1],
-                })
-              },
-            ],
-          }
-        ]}>
-          <Image style={{width:"100%", resizeMode:"contain"}} source={require('./assets/images/bcgrnd.png')} />
-        </Animated.View>
-)}
+        <View style={{ width: deviceWidth, height: deviceHeight, alignContent: "center", alignItems: "center", justifyContent: "center" }}>
+          <View style={{ width: "100%", height: "100%", alignContent: "center", alignItems: "center", justifyContent: "center", backgroundColor: "#9733EE" }}>
+            {this.state.change ? (
+              <Animated.View style={[
+                {
+                  opacity: this.state.opacity_other,
+                  width: "100%",
+                  transform: [
+                    {
+                      scale: this.state.opacity_other.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [0.85, 1],
+                      })
+                    },
+                  ],
+                }
+              ]}>
+                <Image style={{ width: "100%", resizeMode: "contain" }} source={require('./assets/images/top_logo.png')} />
+              </Animated.View>
+            ) : (
+                <Animated.View style={[
+                  {
+                    opacity: this.state.opacity,
+                    width: "100%",
+                    transform: [
+                      {
+                        scale: this.state.opacity.interpolate({
+                          inputRange: [0, 1],
+                          outputRange: [0.85, 1],
+                        })
+                      },
+                    ],
+                  }
+                ]}>
+                  <Image style={{ width: "100%", resizeMode: "contain" }} source={require('./assets/images/top_logo.png')} />
+                </Animated.View>
+              )}
 
-</View>
+          </View>
 
 
 
         </View>
- 
+
       );
     }
-    if (this.state.loggedIn){
+    if (this.state.loggedIn) {
       return (
-        <LoginNavigator />
+        // <LoginNavigator />
+        <AppNavigator />
       );
-    }else{
+    } else {
       return (
         <AppNavigator />
       );
@@ -144,10 +147,10 @@ export default class App extends Component {
     //     <AppNavigator />
     //   );
     // }
- 
-    
+
+
   }
- 
+
 }
 AppRegistry.registerComponent('SWMC App', () => App);
 const styles = StyleSheet.create({
@@ -156,13 +159,13 @@ const styles = StyleSheet.create({
     height: deviceHeight,
     alignItems: 'center',
     justifyContent: 'center',
-    alignContent:"center"
+    alignContent: "center"
   },
 
   imageStyle: {
     width: "100%",
     height: "50%",
-    resizeMode:"contain",
+    resizeMode: "contain",
     borderRadius: 6,
   },
 

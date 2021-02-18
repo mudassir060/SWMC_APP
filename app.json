@@ -4,7 +4,7 @@
     "slug": "Morgan",
     "version": "1.0.0",
     "orientation": "default",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/top_logo.png",
     "splash": {
       "image": "./assets/dashboard_bg.png",
       "resizeMode": "contain",
@@ -19,7 +19,7 @@
     "android": {
       "package": "com.swmc.morgan",
       "versionCode": 14,
-      "icon": "./assets/icon.png",
+      "icon": "./assets/top_logo.png",
       "permissions": [
         "CAMERA",
         "READ_INTERNAL_STORAGE"

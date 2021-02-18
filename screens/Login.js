@@ -1,5 +1,6 @@
 //import React from 'react';
 import React, { Component } from "react";
+
 import {
   StyleSheet,
   StatusBar,
@@ -9,11 +10,12 @@ import {
   AsyncStorage,
   ImageBackground,
   Image,
-  TouchableOpacity,
+  TouchableOpacity, Animated,
   Alert,
   ActivityIndicator,
   ScrollView,
-  image
+  image,
+  Pressable
 } from "react-native";
 import Footer from './Footer';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -25,7 +27,7 @@ import { URL } from "../components/API";
 import BaseHeader from "../components/BaseHeader";
 import publicIP from 'react-native-public-ip';
 import * as ImagePicker from 'expo-image-picker';
-import { MaterialIcons, Ionicons, EvilIcons, MaterialCommunityIcons, Octicons, Feather, Entypo,AntDesign  } from '@expo/vector-icons';
+import { MaterialIcons, Ionicons, EvilIcons, MaterialCommunityIcons, Octicons, Feather, Entypo, AntDesign } from '@expo/vector-icons';
 
 import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
@@ -45,57 +47,67 @@ export default class Login extends Component {
       email: "",
       email_err: "",
       department: 0,
-      pointer:0,
-      ip:"",
+      pointer: 0,
+      ip: "",
       images: [],
-      user_avatar:"",
-      departments_data:[],
-      isLoading:false,
-      loader:true,
+      user_avatar: "",
+      departments_data: [],
+      isLoading: false,
+      loader: true,
+      slideUpValue: new Animated.Value(0),
+      opacity_other: new Animated.Value(0),
     };
   }
-  componentDidMount() {
-    publicIP()
-    .then(ip => {
-      this.setState({ip : ip})
-    })
-    .catch(error => {
-      console.log(error);
+
+  animIntialize() {
+    Animated.timing(this.state.slideUpValue, {
+      toValue: 1,
+      duration: 800,
+      useNativeDriver: true
+    }).start();
+  }
+
+  onLoad_other = () => {
+    Animated.timing(this.state.opacity_other, {
+      toValue: 1,
+      duration: 3000,
+      useNativeDriver: true,
+    }).start(() => {
+      this.setState({ loading: false })
     });
+  }
+  componentDidMount() {
+    this.animIntialize();
+    this.onLoad_other();
+
+
+    publicIP()
+      .then(ip => {
+        this.setState({ ip: ip })
+      })
+      .catch(error => {
+        console.log(error);
+      });
     this.fetchDepartments();
     // this.fetchAvatars();
-   
+
   }
- fetchDepartments = () => {
-  fetch(URL+"get-departments", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    }
-  })
-    .then(res => res.json())
-    .then(async response => {
-       console.log("Response =>");
-       console.log(response.data);
-     this.setState({departments_data : response.data, loader:false})
+  fetchDepartments = () => {
+    fetch(URL + "get-departments", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      }
     })
-    .catch(error => alert("Please Check Your Internet Connection"));
- }
-//  fetchAvatars = () => {
-//   fetch(URL+"get-avatars", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json"
-//     }
-//   })
-//     .then(res => res.json())
-//     .then(async response => {
-//        console.log("Response =>");
-//        console.log(response.data);
-//      this.setState({images : response.data, loader:false})
-//     })
-//     .catch(error => alert("Please Check Your Internet Connection"));
-//  }
+      .then(res => res.json())
+      .then(async response => {
+        console.log("Response =>");
+        console.log(response.data);
+        this.setState({ departments_data: response.data, loader: false })
+      })
+      .catch(error => alert("Please Check Your Internet Connection"));
+  }
+
   onDepartmentSelect(value) {
     console.log(value);
     var check_selected_array_object = this.state.departments_data.find(
@@ -108,47 +120,47 @@ export default class Login extends Component {
     });
     this.state.department = value;
   }
-nextImage = () => {
-const {pointer , images} = this.state;
-let lengthOfArr = this.state.images.length;
+  nextImage = () => {
+    const { pointer, images } = this.state;
+    let lengthOfArr = this.state.images.length;
 
-if (pointer == lengthOfArr - 1){
- this.setState({pointer : 0});
-}else{
-  this.setState({pointer : pointer + 1})
-}
-// alert(pointer);
-}
-backImage = () => {
-  const {pointer , images} = this.state;
-  let lengthOfArr = this.state.images.length;
-  
-  if (pointer == 0){
-   this.setState({pointer : lengthOfArr - 1});
-  }else{
-    this.setState({pointer : pointer - 1})
+    if (pointer == lengthOfArr - 1) {
+      this.setState({ pointer: 0 });
+    } else {
+      this.setState({ pointer: pointer + 1 })
+    }
+    // alert(pointer);
   }
-  // alert(pointer);
+  backImage = () => {
+    const { pointer, images } = this.state;
+    let lengthOfArr = this.state.images.length;
+
+    if (pointer == 0) {
+      this.setState({ pointer: lengthOfArr - 1 });
+    } else {
+      this.setState({ pointer: pointer - 1 })
+    }
+    // alert(pointer);
   }
   submit = () => {
-  
-    const {user_avatar,name , email, department,ip} = this.state;
- 
+
+    const { user_avatar, name, email, department, ip } = this.state;
+
     let email_reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     let l_email = email.toLowerCase();
-   
-    if (name == "" && email == "" && department == 0 ) {
+
+    if (name == "" && email == "" && department == 0) {
       Alert.alert(
         "SWMC_app",
         "please enter all fields",
         [
-         
-          { text: "OK"}
+
+          { text: "OK" }
         ],
         { cancelable: false }
       );
     }
-    
+
 
     if (name == "") {
       this.setState({ name_err: "Required" });
@@ -157,20 +169,20 @@ backImage = () => {
         name_err: ""
       });
     }
-   
+
     if (email == "") {
       this.setState({ email_err: "Required" });
     } else {
-      if(l_email.indexOf("@swmc.com") == -1){
+      if (l_email.indexOf("@swmc.com") == -1) {
         this.setState({
           email_err: "Invalid Email Address"
         });
-      }else{
+      } else {
         this.setState({
           email_err: ""
         });
       }
-     
+
     }
     if (department == 0) {
       this.setState({ department_err: "Required" });
@@ -179,18 +191,18 @@ backImage = () => {
         department_err: ""
       });
     }
-   
-    if(name != "" && email != "" && l_email.indexOf("@swmc.com") != -1 && department != 0){
+
+    if (name != "" && email != "" && l_email.indexOf("@swmc.com") != -1 && department != 0) {
       this.setState({ isLoading: true });
-      console.log(l_email+"--"+name+"--"+ip+"--"+department+"--"+this.state.images[this.state.pointer]);
-      fetch(URL+"create-user", {
+      console.log(l_email + "--" + name + "--" + ip + "--" + department + "--" + this.state.images[this.state.pointer]);
+      fetch(URL + "create-user", {
         method: "POST",
         body: JSON.stringify({
-          "email" : l_email,
-          "name" : name,
-          "image" : this.state.user_avatar,
-          "ip" : ip,
-          "help" : department,
+          "email": l_email,
+          "name": name,
+          "image": this.state.user_avatar,
+          "ip": ip,
+          "help": department,
         }),
         headers: {
           "Content-Type": "application/json"
@@ -198,24 +210,24 @@ backImage = () => {
       })
         .then(res => res.json())
         .then(async response => {
-           console.log("Response =>=?");
-           console.log(response);
+          console.log("Response =>=?");
+          console.log(response);
           if (response.response == "success") {
             console.log("this.state.address")
             console.log(this.state.address)
             console.log(this.state.department)
             // console.log("this.state.address")
             let arr = {};
-            arr.address= this.state.address;
-            arr.email= this.state.email;
+            arr.address = this.state.address;
+            arr.email = this.state.email;
             var check_selected_array_object = this.state.departments_data.find(
               task => task.id === this.state.department
             );
-            if(check_selected_array_object){
+            if (check_selected_array_object) {
 
-              arr.department= check_selected_array_object.name;
-            }else{
-              arr.department= 'N/A';
+              arr.department = check_selected_array_object.name;
+            } else {
+              arr.department = 'N/A';
 
             }
             AsyncStorage.setItem("userID", JSON.stringify(response.data));
@@ -225,7 +237,7 @@ backImage = () => {
             console.log(arr)
             // AsyncStorage.setItem("user_image", JSON.stringify(this.state.images[this.state.pointer]));
             this.setState({ isLoading: false });
-            this.props.navigation.push("Chat")
+            this.props.navigation.push("profile")
           } else {
             Alert.alert("Sorry", response.message, [{ text: "OK" }], {
               cancelable: true
@@ -241,13 +253,13 @@ backImage = () => {
   }
   getPermissionAsync = async () => {
     if (Platform.OS !== 'web') {
-        const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-        if (status !== 'granted') {
-            alert('Sorry, we need camera roll permissions to make this work!');
-        }
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      if (status !== 'granted') {
+        alert('Sorry, we need camera roll permissions to make this work!');
+      }
     }
-};
- 
+  };
+
   pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -259,7 +271,7 @@ backImage = () => {
     console.log(result);
 
     if (!result.cancelled) {
-      this.setState({user_avatar:result.uri})
+      this.setState({ user_avatar: result.uri })
       AsyncStorage.setItem("user_image", JSON.stringify(result.uri));
       // setImage(result.uri);
     }
@@ -269,184 +281,201 @@ backImage = () => {
     const { navigation } = this.props.navigation;
     const fontColor = "#82a601";
     console.log("---------------")
-    console.log("http://swmcapp.com/"+this.state.images[this.state.pointer])
-    let image_path="";
-    let image_uri="";
-     image_uri=this.state.images[this.state.pointer]
-     if(image_uri){
-      let ispresant=image_uri.indexOf("http");
+    console.log("http://swmcapp.com/" + this.state.images[this.state.pointer])
+    let image_path = "";
+    let image_uri = "";
+    image_uri = this.state.images[this.state.pointer]
+    if (image_uri) {
+      let ispresant = image_uri.indexOf("http");
       console.log("-------1321313213--------")
       console.log(ispresant)
-      if(ispresant==-1){
-        image_path="http://swmcapp.com/"+this.state.images[this.state.pointer];
-      }else{
-        image_path=image_uri
+      if (ispresant == -1) {
+        image_path = "http://swmcapp.com/" + this.state.images[this.state.pointer];
+      } else {
+        image_path = image_uri
       }
-     }
- 
+    }
+
     return (
-      
- 
 
-<LinearGradient style={{flex:1}} colors={['#f7bb97','#dd5e89' ]}>
-<ImageBackground source={require("../assets/images/bcgrnd.png")} imageStyle={{resizeMode:"cover", overlayColor:"grey"}} style={{flex:1 }}>
-<ScrollView>
-    <View style={{flex:1}}>
 
-    <BaseHeader
-         navigation={this.props.navigation}
-         title={"Customer Care"}
-         logo={true}
-       />
-       <Content>
-        
-           <View
-             style={{
-               width: "100%",
-               alignItems: "center",
-               alignContent: "center"
-             }}
-           >
-             <View
-               style={{
-                 width: "90%",
-                 marginVertical: 10,
-                 alignItems: "center",
-                 justifyContent: "center"
-               }}
-             >
-               
-              <View style={{marginTop:25  }}>
-                            <TouchableOpacity style={{borderRadius:20,borderWidth:1,borderColor:"grey",padding:5,backgroundColor:"#fff",marginTop:10}} onPress={() => this.pickImage()}>
-                                <Text>Choose Image</Text>
-                            </TouchableOpacity>
-                            {this.state.user_avatar? (<Image source={{ uri: this.state.user_avatar }} style={{width:80, height: 80,borderRadius:50,marginTop:10 }} />):null }
-                            </View>
-                           
 
-             </View>
-             </View>
-             <View style={{paddingHorizontal:25,paddingBottom:100}}>
-            
-       
-             <View style={{ width: "95%", justifyContent: "center", alignContent: "center",marginTop:25,borderWidth:2,borderColor:"#fff",paddingTop:5,paddingBottom:5,borderRadius:8,backgroundColor: 'rgba(238,238,238,0.2)' }}>
-                <TextInput
-                  style={{ fontSize: 15,paddingHorizontal:10 ,fontWeight:"bold",color:"#fff"}}
-                  placeholder="Full Name"
-                  placeholderTextColor="#fff"
-                  onChangeText={(name) => {
-                    this.setState({name});
-                  }}
-                  value={this.state.name}
-                />
-               
-                </View> 
-                <View>
-                  <Text style={{color:"red"}}>{this.state.name_err}</Text>
-                </View>
-                <View style={{ width: "95%", justifyContent: "center", alignContent: "center",marginTop:15,borderWidth:2,borderColor:"#fff",paddingTop:5,paddingBottom:5,borderRadius:8,backgroundColor: 'rgba(238,238,238,0.2)'}}>
-                <TextInput
-                  style={{ fontSize: 15,paddingHorizontal:10,fontWeight:"bold",color:"#fff" }}
-                  placeholder="Email Address"
-                  placeholderTextColor="#fff"
-                  onChangeText={(email) => {
-                    this.setState({email});
-                  }}
-                  value={this.state.email}
-                />
-              
-                </View> 
-                <View>
-                  <Text style={{color:"red"}}>{this.state.email_err}</Text>
-                </View>
-             <View style={{ width: "95%",marginTop:20}}>
-               <View
-                 style={{
-                  backgroundColor: 'rgba(238,238,238,0.2)',
-                   borderWidth: 0.8,
-             
-                   borderColor: "#808080",
-                   padding: 0,
-                   marginTop: 10,
-                
-                 }}
-               >
-                 <Picker
-                   mode="dropdown"
-                  
-                   style={{ width: undefined, height: 40,color:"#fff" }}
-                   placeholder="how we can help you ?"
-                   placeholderStyle={{ }}
-                   placeholderIconColor="#fff"
-                   textStyle={{fontSize: 12}}
-                   selectedValue={this.state.department}
-                   onValueChange={this.onDepartmentSelect.bind(this)}
-                 >
-                   <Picker.Item label="What can we help you with?" value={0}  />
-                   {
-                     this.state.departments_data.map((item, index) => {
-  return(
-   <Picker.Item key={index} label={item.name} value={item.id} />
-  )
-   })
+      <LinearGradient style={{ flex: 1 }} colors={['#9733EE', '#1D2B64']}>
+        <ImageBackground source={require("../assets/images/bcgrnd.png")}
+          imageStyle={{ resizeMode: "cover", overlayColor: "grey" }} style={{ flex: 1 }}>
+
+          <ScrollView>
+            <View style={{ flex: 1 }}>
+              {/* <Animated.View
+                style={{
+                  transform: [
+                    {
+                      translateX: this.state.slideUpValue.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [-600, 0]
+                      })
                     }
-                  
-                 
-                 </Picker>
-               </View>
-               <Text style={{color:"#00ACD9"}}>{this.state.department_err}</Text>
-              
-             </View>
-             <View style={{ width: "100%",marginTop:100,alignItems:"center",alignContent:"center"}}>
-          
-               <TouchableOpacity  style={styles.login_button} onPress={() => this.submit()} >
-               <Text style={{ color: '#eb7b65',fontSize:20 }}>Login</Text>
-                </TouchableOpacity>
+                  ],
+
+                }}
+                >
+                <BaseHeader
+                navigation={this.props.navigation}
+                title={"Customer Care"}
+                logo={true}
+                />
+              </Animated.View> */}
+
+              <Content>
+
+                  <View>
+                    <Text style={{ margin: 50,marginBottom:0, color: "#fff", fontSize: 35, fontWeight: "bold", }}>
+                      Sign in
+                      </Text>
+                      <Text style={{ marginLeft: 60,marginTop:-5, color: "#fff", fontSize: 15 }}>
+                      Welcome to Morgan
+                      </Text>
+                  </View>
+                <View
+                  style={{ width: "100%", alignItems: "center", alignContent: "center" }}>
+                  {/* //////////////////////////////Choose Image///////////////////////////////// */}
+                  <View style={{ width: "90%", marginVertical: 0, alignItems: "center", justifyContent: "center" }}>
+                    <View style={{ marginTop: 5 }}>
+                      {this.state.user_avatar ? (
+                        <Image source={{ uri: this.state.user_avatar }}
+                          style={{ width: 80, height: 80, borderRadius: 50, marginTop: 10 }} />)
+                        :
+                        <TouchableOpacity style={{ borderRadius: 30, borderWidth: 1, borderColor: "grey", padding: 5, backgroundColor: "#fff", marginTop: 10 }}
+                          onPress={() => this.pickImage()}>
+                          <MaterialIcons name="camera-alt" size={74} color="#B1B1B1" />
+                        </TouchableOpacity>
+                      }
+                    </View>
+                  </View>
+
+                </View>
+                <View style={{ paddingHorizontal: 25, paddingBottom: 100 }}>
+
+                  {/* ////////////////////////////////Name TextInput/////////////////////////////// */}
+
+                  <View style={{ width: "100%", marginTop: 15, borderBottomWidth: 2, borderColor: "#fff", paddingTop: 5, paddingBottom: 5, }}>
+                  <Text style={{ marginLeft: 10,marginTop:-5, color: "#fff", fontSize: 15, fontWeight: "bold" }}>
+                      Name
+                      </Text>
+                    <TextInput
+                      style={{ fontSize: 15, paddingHorizontal: 10, color: "#fff" }}
+                      placeholder="Enter Full Name"
+                      placeholderTextColor="#fff"
+                      onChangeText={(name) => { this.setState({ name }); }}
+                      value={this.state.name}
+                    />
+                  </View>
+                  <View>
+                    <Text style={{ color: "red" }}>{this.state.name_err}</Text>
+                  </View>
+                  {/* ////////////////////////////////Name TextInput/////////////////////////////// backgroundColor: 'rgba(238,238,238,0.2)' */}
+                  <View style={{ width: "100%", marginTop: 15, borderBottomWidth: 2, borderColor: "#fff", paddingTop: 5, paddingBottom: 5, }}>
+                  <Text style={{ marginLeft: 10,marginTop:-5, color: "#fff", fontSize: 15, fontWeight: "bold" }}>
+                  Email Address
+                      </Text>
+                    <TextInput
+                      style={{ fontSize: 15, paddingHorizontal: 10, color: "#fff" }}
+                      placeholder="Enter Email Address"
+                      placeholderTextColor="#fff"
+                      onChangeText={(email) => {
+                        this.setState({ email });
+                      }}
+                      value={this.state.email}
+                    />
+                  </View>
+                  <View>
+                    <Text style={{ color: "red" }}>{this.state.email_err}</Text>
+                  </View>
+                  {/* ////////////////////////////////dropdown/////////////////////////////// */}
+                  <View style={{ width: "100%", marginTop: 6 }}>
+                    <View
+                      style={{
+                        // backgroundColor: 'rgba(238,238,238,0.2)',
+                        borderWidth: 0.8,
+                        // borderColor: "#808080",
+                        padding: 0,
+                        marginTop: 10,
+                      }}>
+                      <Picker
+                        mode="dropdown"
+
+                        style={{ width: undefined, height: 40, color: "#fff" }}
+                        placeholder="how we can help you ?"
+                        placeholderStyle={{}}
+                        placeholderIconColor="#fff"
+                        textStyle={{ fontSize: 12 }}
+                        selectedValue={this.state.department}
+                        onValueChange={this.onDepartmentSelect.bind(this)}
+                      >
+                        <Picker.Item label="What can we help you with?" value={0} />
+                        {
+                          this.state.departments_data.map((item, index) => {
+                            return (
+                              <Picker.Item key={index} label={item.name} value={item.id} />
+                            )
+                          })
+                        }
+
+
+                      </Picker>
+                    </View>
+                    <Text style={{ color: "red" }}>{this.state.department_err}</Text>
+                  </View>
+                  <View style={{ width: "100%", marginTop: 30, alignItems: "center", alignContent: "center" }}>
+
+                    <TouchableOpacity style={styles.login_button} onPress={() => this.submit()} >
+                      <Text style={{ color: 'black', fontSize: 20 }}>Login</Text>
+                    </TouchableOpacity>
 
 
 
-             </View>
-         
+                  </View>
 
-             </View>
 
-          
-        
-       </Content>
- 
+                </View>
 
 
 
-    </View>
-    </ScrollView>
-   
-   
-   
-
-    </ImageBackground>
-
-
-
-</LinearGradient>
+              </Content>
 
 
 
 
-
-     
-  
-
+            </View>
+          </ScrollView>
 
 
-   
-    
 
-  
-    
-      
-        
-   
-    
+
+        </ImageBackground>
+
+
+
+      </LinearGradient>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     );
   }
 }
@@ -484,7 +513,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 10,
   },
- 
+
 })
 
 
@@ -539,7 +568,7 @@ const styles = StyleSheet.create({
 
 
 
-     {/* {this.state.isLoading ? (
+{/* {this.state.isLoading ? (
                  <Button
                    bordered
                    style={{
@@ -554,9 +583,8 @@ const styles = StyleSheet.create({
                    <ActivityIndicator color={"#fd7e14"} size={"small"} />
                  </Button>
                ) : (
-               
+
                <TouchableOpacity onPress={()=>this.props.navigation.navigate('ChatDashboard')}>
                    <image source={require('../assets/images/enter.png')}/>
                    </TouchableOpacity>
                )} */}
-             

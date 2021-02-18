@@ -336,7 +336,7 @@ export default class Chat extends Component {
     console.log(image_path)
     return (
 
-      <MenuProvider style={{flex:1,backgroundColor:"#000"}}>
+      <MenuProvider style={{flex:1,backgroundColor:"#010E31"}}>
 
 
         {/* <HeaderScreen title={"Search Display"} filter={true} back={true} navigation={this.props.navigation} /> */}
@@ -359,7 +359,7 @@ export default class Chat extends Component {
                   value={this.state.search_text}
                 />
                 </View>  */}
-        <View style={{ width: "100%", flexDirection: "row", borderColor: "#DBDBDB", backgroundColor: "#000", paddingTop: 30 }}>
+        <View style={{ width: "100%", flexDirection: "row", borderColor: "#DBDBDB", backgroundColor: "#010E31", paddingTop: 30 }}>
           <TouchableOpacity style={{ width: "10%", marginLeft:20, marginTop: 10  }} onPress={() => this.props.navigation.navigate('profile')}>
           <Entypo name="home" size={24} color="#fff" />
           </TouchableOpacity>
@@ -392,7 +392,7 @@ export default class Chat extends Component {
             </Menu>
           </TouchableOpacity>
         </View>
-        <LinearGradient style={{width:"100%",height:"90%", borderTopLeftRadius: 30,  }} colors={['#f7bb97', '#dd5e89']}>
+        <LinearGradient style={{width:"100%",height:"90%", borderTopLeftRadius: 30,  }}  colors={['#9733EE', '#1D2B64']}>
           <ScrollView style={{  borderTopLeftRadius: 30,  }}>
             <View >
            

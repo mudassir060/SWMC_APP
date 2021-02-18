@@ -421,14 +421,15 @@ this.setState({
      // console.log("final image_path")
      // console.log(image_path)
     return (
-<View style={{flex:1,backgroundColor:"#000"}}>
+<View style={{flex:1,backgroundColor:"#010E31", marginTop:22}}>
 <View style={{ alignItems: 'center' }}>
           {/* <HeaderScreen title={"Search Display"} filter={true} back={true} navigation={this.props.navigation} /> */}
-          <View style={{width:"100%",marginTop:50, paddingBottom:10, borderBottomColor: "#A3A3A3",flexDirection:"row"}}>
+          <View style={{width:"100%",margin:20, paddingBottom:10, borderBottomColor: "#A3A3A3",flexDirection:"row"}}>
 
           {/* <TouchableOpacity style={{ width: "20%",alignItems:"center",marginTop:5}}onPress={() =>this.props.navigation.navigate('start')}>
                   <Entypo name="chevron-thin-left" size={24} color="#2F368E" />
                 </TouchableOpacity> */}
+                
           <View style={{ width: "100%",alignItems:"center" }}>
             <Text style={{ color: "#fff", fontSize: 25, fontWeight: "bold" }}>Messages</Text>
           </View>
@@ -452,7 +453,7 @@ this.setState({
                 />
                 </View>  */}
          
-          <LinearGradient style={{width:"100%",height:"100%",borderTopRightRadius:35}} colors={['#f7bb97','#dd5e89' ]}>
+          <LinearGradient style={{width:"100%",height:"100%",borderTopRightRadius:35}} colors={['#9733EE', '#1D2B64']}>
           <ScrollView  style={{}}>
           <View style={{ width: "100%", flexDirection: "row", marginTop: 20, }}>
               <TouchableOpacity style={{ width: "20%", alignItems: "center",borderTopRightRadius:15 }}>

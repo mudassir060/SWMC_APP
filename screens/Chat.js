@@ -365,12 +365,12 @@ export default class Chat extends Component {
 
           </TouchableOpacity>
           <TouchableOpacity style={{ width: "70%",alignItems: "center", }}>
-            {this.state.user_image ? (
+            {/* {this.state.user_image ? (
               <View style={{width:"25%"  ,borderRadius: 50,borderWidth:2,borderColor:"#fff"}}>
                 {/* <Image style={{width:40,height:40,borderRadius:100}} source={require('../assets/profile.png')} /> */}
-                {/* <Image style={styles.box} source={{ uri: this.state.user_image }} /> */}
+                {/* <Image style={styles.box} source={{ uri: this.state.user_image }} /> 
               </View>
-            ) : null}
+            ) : null} */}
             <View style={{}}>
               <Text style={{ fontSize: 20, color: "#fff", fontWeight: "bold",padding:10 }}> {this.state.user_name}</Text>
             </View>

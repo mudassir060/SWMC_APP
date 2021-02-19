@@ -438,7 +438,7 @@ export default class Profile extends Component {
 
           {/* <...........................Profile img.............................> */}
    
-          <View style={{ width: "100%", marginVertical: 10, alignContent: "center", alignItems: "center" }}>
+          <View style={{ width: "100%", marginVertical: 10, alignContent: "center", alignItems: "center", position: "absolute", zIndex: 1, }}>
             <View style={{}}>
               {this.state.user_image ? (<Image style={styles.box} source={{ uri: this.state.user_image }} 
               // style={{ width: 80, height: 80, borderRadius: 50, marginTop: 10 }} 
@@ -453,8 +453,8 @@ export default class Profile extends Component {
           </View>
           {/* <...........................Profile Data.............................> */}
 
-          <LinearGradient style={{ width: "100%", height: screenHeight, borderTopRightRadius: 50, borderTopLeftRadius: 50 }} colors={['#9733EE', '#1D2B64']}>
-            <View style={{ width: "100%", alignItems: "center", alignContent: "center", marginTop: 20 }}>
+          <LinearGradient style={{ width: "100%", height: screenHeight, borderTopRightRadius: 50, borderTopLeftRadius: 50, marginTop:110 }} colors={['#9733EE', '#1D2B64']}>
+            <View style={{ width: "100%", alignItems: "center", alignContent: "center", marginTop: 80 }}>
               {/* <View style={{ marginTop: 5, marginBottom: 10 }}>
 
                 <TouchableOpacity style={{ borderRadius: 20, borderWidth: 1, borderColor: "grey",padding: 5, backgroundColor: "#fff", marginTop: 10 }} onPress={() => this._pickImage()}>

@@ -301,8 +301,8 @@ export default class Login extends Component {
 
 
       <LinearGradient style={{ flex: 1 }} colors={['#9733EE', '#1D2B64']}>
-        <ImageBackground source={require("../assets/images/bcgrnd.png")}
-          imageStyle={{ resizeMode: "cover", overlayColor: "grey" }} style={{ flex: 1 }}>
+        {/* <ImageBackground source={require("../assets/images/bcgrnd.png")}
+          imageStyle={{ resizeMode: "cover", overlayColor: "grey" }} style={{ flex: 1 }}> */}
 
           <ScrollView>
             <View style={{ flex: 1 }}>
@@ -343,7 +343,7 @@ export default class Login extends Component {
                     <View style={{ marginTop: 5 }}>
                       {this.state.user_avatar ? (
                         <Image source={{ uri: this.state.user_avatar }}
-                          style={{ width: 80, height: 80, borderRadius: 50, marginTop: 10 }} />)
+                          style={{ width: 80, height: 80, borderRadius: 30, marginTop: 10 }} />)
                         :
                         <TouchableOpacity style={{ borderRadius: 30, borderWidth: 1, borderColor: "grey", padding: 5, backgroundColor: "#fff", marginTop: 10 }}
                           onPress={() => this.pickImage()}>
@@ -443,16 +443,13 @@ export default class Login extends Component {
 
               </Content>
 
-
-
-
             </View>
           </ScrollView>
 
 
 
 
-        </ImageBackground>
+        {/* </ImageBackground> */}
 
 
 

@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet, Picker, Dimensions, ImageBackground, TextInput, AsyncStorage, Keyboard, Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialIcons, MaterialCommunityIcons, Entypo } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
+
 import Constants from "expo-constants";
 import { Linking } from 'react-native'
 import TimeAgo from 'react-native-timeago';
@@ -430,53 +432,100 @@ export default class Profile extends Component {
       <View style={{ flex: 1, alignItems: "center", backgroundColor: "#fff", paddingTop: 25 }}>
         <ScrollView style={{ width: "100%" }}>
 
-          {/* <View style={{ width: "100%", marginVertical: 10, alignContent: "center", alignItems: "center" }}>
-            <View style={{}}>
-              <Image style={styles.box} source={{ uri: this.state.user_image }} />
-            </View>
-          </View> */}
+          {/* <...........................header.............................> */}
 
-          {/* <...........................Profile img.............................> */}
-   
-          <View style={{ width: "100%", marginVertical: 10, alignContent: "center", alignItems: "center", position: "absolute", zIndex: 1, }}>
-            <View style={{}}>
-              {this.state.user_image ? (<Image style={styles.box} source={{ uri: this.state.user_image }} 
-              // style={{ width: 80, height: 80, borderRadius: 50, marginTop: 10 }} 
-              />) : 
-              <TouchableOpacity style={styles.box} onPress={() => this._pickImage()}>
-              {/* <Text style={{  margin: 45 }} >Choose Image</Text> */}
-              <MaterialIcons style={{ fontSize:100, marginTop:20, marginLeft:20 }}  name="camera-alt" size={24} color= "#B1B1B1"/>
+          <View style={{
+            width: "15%", padding: 10, backgroundColor: '#8757C7', borderRadius: 80
+            , borderWidth: 3, borderColor: "#fff", marginTop: 1, marginLeft: 5
+          }}>
 
+            <TouchableOpacity style={{ alignItems: "center" }}
+              onPress={() => this.props.navigation.navigate('Messages')}
+            >
+              <Entypo name="chevron-thin-left" size={24} color="#fff" />
             </TouchableOpacity>
-            }
+
+          </View>
+          {/* <...........................Profile img.............................> */}
+
+          <View style={{
+            width: "100%", marginTop: 50, alignContent: "center",
+            alignItems: "center", position: "absolute", zIndex: 1,
+          }}>
+            <View style={{}}>
+              {this.state.user_image ? (<Image style={styles.box} source={{ uri: this.state.user_image }}
+              // style={{ width: 80, height: 80, borderRadius: 50, marginTop: 10 }} 
+              />) :
+                <TouchableOpacity style={styles.box} onPress={() => this._pickImage()}>
+                  {/* <Text style={{  margin: 45 }} >Choose Image</Text> */}
+                  <MaterialIcons style={{ fontSize: 100, marginTop: 20, marginLeft: 20 }} name="camera-alt" size={24} color="#B1B1B1" />
+
+                </TouchableOpacity>
+              }
             </View>
           </View>
-          {/* <...........................Profile Data.............................> */}
+          {/* <...........................Profile LinearGradient Data.............................> */}
 
-          <LinearGradient style={{ width: "100%", height: screenHeight, borderTopRightRadius: 50, borderTopLeftRadius: 50, marginTop:110 }} colors={['#9733EE', '#1D2B64']}>
+          <LinearGradient style={{ width: "100%", height: screenHeight, borderTopRightRadius: 50, borderTopLeftRadius: 50, marginTop: 80 }} colors={['#9733EE', '#1D2B64']}>
             <View style={{ width: "100%", alignItems: "center", alignContent: "center", marginTop: 80 }}>
               {/* <View style={{ marginTop: 5, marginBottom: 10 }}>
 
                 <TouchableOpacity style={{ borderRadius: 20, borderWidth: 1, borderColor: "grey",padding: 5, backgroundColor: "#fff", marginTop: 10 }} onPress={() => this._pickImage()}>
                   <Text>Choose Image</Text>
                 </TouchableOpacity>
-
+                
                 {this.state.user_image ? (<Image source={{ uri: this.state.user_image }} style={{ width: 80, height: 80, borderRadius: 50, marginTop: 10 }} />) : null}
               </View> */}
-              <View style={{ width: "80%", flexDirection: "row", paddingVertical: 6, borderWidth: 2, borderColor: "#fff", borderRadius: 8, backgroundColor: 'rgba(238,238,238,0.2)' }}>
+              <Text style={{ fontWeight: "bold", fontSize: 27, color: "#fff" }}>
+                {this.state.user_name}
+              </Text>
+              <Text style={{ fontWeight: "bold", fontSize: 17, color: "#fff" }}>
+                {this.state.user_data.email}
+              </Text>
+              {/* <View style={{ width: "80%", flexDirection: "row", paddingVertical: 6, borderWidth: 2, borderColor: "#fff", borderRadius: 8, backgroundColor: 'rgba(238,238,238,0.2)' }}>
                 <View style={{ width: "50%", justifyContent: "center" }}>
                   <Text style={{ fontWeight: "bold", fontSize: 17, color: "#fff", paddingLeft: 10 }}>
                     Name:
 </Text>
                 </View>
                 <View style={{ width: "50%", justifyContent: "center" }}>
-                  <Text style={{ fontWeight: "bold", fontSize: 17, color: "#fff" }}>
-                    {this.state.user_name}
-                  </Text>
                 </View>
+              </View> */}
+            </View>
+            <View style={{ width: "100%", padding: 20, flexDirection: "row" }}>
+
+              <View style={styles.icon}>
+                <TouchableOpacity style={{ alignItems: "center" }}>
+                  <MaterialIcons name="call" size={24} color="#B1B1B1" />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.icon}>
+                <TouchableOpacity style={{ alignItems: "center" }}>
+                  <MaterialIcons name="video-call" size={24} color="#B1B1B1" />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.icon}>
+                <TouchableOpacity style={{ alignItems: "center" }}>
+                  <MaterialIcons name="add" size={24} color="#B1B1B1" />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.icon}>
+                <TouchableOpacity style={{ alignItems: "center" }}>
+                  <MaterialIcons name="mic" size={24} color="#B1B1B1" />
+                </TouchableOpacity>
               </View>
             </View>
-            <View style={{ width: "100%", alignItems: "center", alignContent: "center", marginTop: 20 }}>
+
+            <View style={{ width: "100%", marginLeft:40}}>
+              <Text style={{ fontWeight: "bold", fontSize: 17, color: "#fff" }}>
+                Update
+                  </Text>
+            </View>
+            <View style={{ width: "100%", padding: 20, flexDirection: "row" }}>
+              <View style={{ width: "40%", padding: 20, height: 100, backgroundColor: "#fff", margin: 18 }}></View>
+              <View style={{ width: "40%", padding: 20, height: 100, backgroundColor: "#fff", margin: 18 }}></View>
+            </View>
+            {/* <View style={{ width: "100%", alignItems: "center", alignContent: "center", marginTop: 20 }}>
               <View style={{ width: "80%", flexDirection: "row", paddingVertical: 6, borderWidth: 2, borderColor: "#fff", borderRadius: 8, backgroundColor: 'rgba(238,238,238,0.2)' }}>
                 <View style={{ width: "50%", justifyContent: "center" }}>
                   <Text style={{ fontWeight: "bold", fontSize: 17, color: "#fff", paddingLeft: 10 }}>
@@ -484,13 +533,11 @@ export default class Profile extends Component {
 </Text>
                 </View>
                 <View style={{ width: "50%", justifyContent: "center" }}>
-                  <Text style={{ fontWeight: "bold", fontSize: 17, color: "#fff" }}>
-                    {this.state.user_data.email}
-                  </Text>
+                 
                 </View>
               </View>
-            </View>
-            <View style={{ width: "100%", alignItems: "center", alignContent: "center", marginTop: 20 }}>
+            </View> */}
+            {/* <View style={{ width: "100%", alignItems: "center", alignContent: "center", marginTop: 20 }}>
               <View style={{ width: "80%", flexDirection: "row", paddingVertical: 6, borderWidth: 2, borderColor: "#fff", borderRadius: 8, backgroundColor: 'rgba(238,238,238,0.2)' }}>
                 <View style={{ width: "50%", justifyContent: "center" }}>
                   <Text style={{ fontWeight: "bold", fontSize: 17, color: "#fff", paddingLeft: 10 }}>
@@ -503,8 +550,8 @@ export default class Profile extends Component {
                   </Text>
                 </View>
               </View>
-            </View>
-            <View style={{ width: "100%", alignItems: "center", alignContent: "center", marginTop: 20 }}>
+            </View> */}
+            {/* <View style={{ width: "100%", alignItems: "center", alignContent: "center", marginTop: 20 }}>
               <View style={{ width: "80%", flexDirection: "row", paddingVertical: 6, borderWidth: 2, borderColor: "#fff", borderRadius: 8, backgroundColor: 'rgba(238,238,238,0.2)' }}>
 
                 <View style={{ width: "100%", paddingHorizontal: 10, justifyContent: "center" }}>
@@ -519,11 +566,12 @@ export default class Profile extends Component {
                   />
                   {/* <Text style={{fontWeight:"bold",fontSize:17}}>
               {this.state.user_data.address}
-</Text> */}
+</Text> 
                 </View>
               </View>
 
-            </View>
+            </View> */}
+
             {/* <View style={{ width: "100%", alignItems: "center", alignContent: "center",marginTop:20}}>
         <View style={{ width: "80%", flexDirection:"row",paddingVertical:6,borderWidth:2,borderColor:"#fff",borderRadius:8,backgroundColor: 'rgba(238,238,238,0.2)'}}>
         
@@ -548,7 +596,7 @@ export default class Profile extends Component {
 
         </ScrollView>
 
-        <Footer title={"profile"} navigation={this.props.navigation} />
+        {/* <Footer title={"profile"} navigation={this.props.navigation} /> */}
 
 
       </View>
@@ -588,9 +636,16 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
     resizeMode: "cover",
-    borderRadius: 80
-    , borderWidth: 3, borderColor: "#f7bb97"
+    borderRadius: 80,
+    borderWidth: 3, borderColor: "#f7bb97",
+    backgroundColor: "#fff"
 
 
   },
+  icon: {
+    width: "15%", padding: 10, backgroundColor: '#fff',
+    borderRadius: 100,
+    borderWidth: 3,
+    borderColor: "#fff", margin: 18
+  }
 });

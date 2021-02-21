@@ -12,7 +12,7 @@ import {
   Image,
   TouchableOpacity,
   Alert,
-  ActivityIndicator, 
+  ActivityIndicator,
   ScrollView,
   TextInput,
   Keyboard
@@ -87,20 +87,21 @@ export default class Chat extends Component {
         });
         this.state.user_name = val.user_name;
         this.socket = io("https://swmc-be.herokuapp.com");
-  
-    const  name  = val.user_name;
-    const  room  = 'test';
-    this.socket.emit('join', { name, room }, (error) => {
-      if(error) {
-        alert(error);
-      }
-    });
-    
-    this.socket.on("message", msg => {
-      this.setState({ messages: [...this.state.messages, msg]   
-  });
-  });
-       
+
+        const name = val.user_name;
+        const room = 'test';
+        this.socket.emit('join', { name, room }, (error) => {
+          if (error) {
+            alert(error);
+          }
+        });
+
+        this.socket.on("message", msg => {
+          this.setState({
+            messages: [...this.state.messages, msg]
+          });
+        });
+
       }
     });
     AsyncStorage.getItem("user_image").then(image => {
@@ -264,15 +265,15 @@ export default class Chat extends Component {
   }
 
   getChat = () => {
-    
-   
+
+
   }
-  
+
   submitmessage = () => {
     if (this.state.message != "") {
-        // console.log(this.state.message);
-        this.socket.emit('sendMessage', this.state.message, () => this.setState({message: ''}));
-    
+      // console.log(this.state.message);
+      this.socket.emit('sendMessage', this.state.message, () => this.setState({ message: '' }));
+
     }
 
   }
@@ -291,7 +292,7 @@ export default class Chat extends Component {
         },
         {
           text: 'Cancel',
-          onPress: () =>  console.log('Cancel Pressed'),
+          onPress: () => console.log('Cancel Pressed'),
           style: 'cancel',
         }
 
@@ -336,7 +337,7 @@ export default class Chat extends Component {
     console.log(image_path)
     return (
 
-      <MenuProvider style={{flex:1,backgroundColor:"#fff"}}>
+      <MenuProvider style={{ flex: 1, backgroundColor: "#fff" }}>
 
 
         {/* <HeaderScreen title={"Search Display"} filter={true} back={true} navigation={this.props.navigation} /> */}
@@ -358,21 +359,21 @@ export default class Chat extends Component {
                   value={this.state.search_text}
                 />
                 </View>  */}
-        <View style={{ width: "100%", flexDirection: "row", backgroundColor: "#8757C7", marginTop: 20 ,padding:3}}>
-          <TouchableOpacity style={{ width: "10%", marginLeft:10, marginTop: 10  }} onPress={() => this.props.navigation.navigate('Messages')}>
-          {/* <Entypo name="home" size={24} color="#fff" /> */}
-          <Entypo name="chevron-thin-left" size={24} color="#2F368E" />
+        <View style={{ width: "100%", flexDirection: "row", backgroundColor: "#8757C7", marginTop: 20, padding: 3 }}>
+          <TouchableOpacity style={{ width: "10%", marginLeft: 10, marginTop: 10 }} onPress={() => this.props.navigation.navigate('Messages')}>
+            {/* <Entypo name="home" size={24} color="#fff" /> */}
+            <Entypo name="chevron-thin-left" size={24} color="#fff" />
 
           </TouchableOpacity>
-          <TouchableOpacity style={{ width: "70%",alignItems: "center", }}>
+          <TouchableOpacity style={{ width: "70%", alignItems: "center", }}>
             {/* {this.state.user_image ? (
               <View style={{width:"25%"  ,borderRadius: 50,borderWidth:2,borderColor:"#fff"}}>
                 {/* <Image style={{width:40,height:40,borderRadius:100}} source={require('../assets/profile.png')} /> */}
-                {/* <Image style={styles.box} source={{ uri: this.state.user_image }} /> 
+            {/* <Image style={styles.box} source={{ uri: this.state.user_image }} /> 
               </View>
             ) : null} */}
             <View style={{}}>
-              <Text style={{ fontSize: 20, color: "#fff", fontWeight: "bold",padding:10 }}> {this.state.user_name}</Text>
+              <Text style={{ fontSize: 20, color: "#fff", fontWeight: "bold", padding: 10 }}> {this.state.user_name}</Text>
             </View>
           </TouchableOpacity>
 
@@ -394,175 +395,210 @@ export default class Chat extends Component {
           </TouchableOpacity>
         </View>
         {/* <LinearGradient style={{width:"100%",height:"90%", borderTopLeftRadius: 30,  }}  colors={['#9733EE', '#1D2B64']}> */}
-      
-          <ScrollView style={{  borderTopLeftRadius: 30,  }}>
-            <View >
-           
-              {
-                this.state.messages.map((item, index) => {
 
-                  if (item.user != this.state.user_name.toLowerCase()) {
-                      if (item.image) {
-                        return (
-                          <View key={index} style={{ width: "100%", paddingVertical: 10 }}>
-                            <View style={{ flexDirection: "row" }}>
-                              <View style={{ width: "20%" }}>
-                                <View style={{ width: 60, height: 60, borderRadius: 60, borderColor: "#fff", borderWidth: 3 }}>
-                                  <Image style={{ width: 55, height: 55, resizeMode: "cover", borderRadius: 55 }} source={require("../assets/images/admin_av.png")} />
-                                </View>
-                              </View>
-                              <View style={{ width: "80%", alignItems: "center", alignContent: "center" }}>
-                                <View style={{ maxWidth: "95%", backgroundColor: "#eaeaea", padding: 20, borderRadius: 10, alignContent: "center", alignItems: "center" }}>
-                                  <Image style={{ width: 250, height: 250, resizeMode: "contain" }} source={{ uri: "http://swmcapp.com/uploads/temp/" + item.image }} />
-                                </View>
-                                <View style={{ width: "95%", paddingVertical: 4, paddingRight: 10 }}>
-                                  <View style={{ flexDirection: "row-reverse" }}>
-                                    <Text style={{ fontSize: 10, color: "#fff" }}>
-                                      {moment(item.date).format("h:m A")}
-                                    </Text>
-                                    <View style={{ paddingHorizontal: 3, paddingTop: 3 }}>
-                                      <Image style={{ width: 7, height: 7, resizeMode: "contain" }} source={require("../assets/images/timer_grey.png")} />
-                                    </View>
-                                  </View>
-                                </View>
-                              </View>
-                            </View>
-                          </View>
-
-                        )
-                      } else {
-                        return (
-
-                          <View key={index} style={{ flexDirection: "row", marginTop: 10, paddingLeft:20 }}>
-                          <View style={{ width: "auto", backgroundColor: 'rgba(0,0,0,0.3)', borderTopLeftRadius:10,borderTopRightRadius:10, borderBottomRightRadius:10, borderBottomLeftRadius:3}}>
-
-
-                              <View style={{ width: "70%", padding: 20 }}>
-                                <Text style={{ lineHeight: 26, color:"#fff" }}>{item.text}</Text>
-                              </View>
-
-                            </View>
-
-                          </View>
-                        )
-                      }
-
-                    } else {
-                      if (item.image) {
-                        return (
-                          <View key={index} style={{ width: "100%", paddingVertical: 10 }}>
-                            <View style={{ flexDirection: "row-reverse" }}>
-                              <View style={{ width: "20%" }}>
-                                {/* <View style={{ width: 60, height: 60, borderRadius: 60, borderColor: "#fff", borderWidth: 3 }}>
-                                  <Image style={{ width: 55, height: 55, resizeMode: "cover", borderRadius: 55 }} source={{ uri: "http://swmcapp.com/" + item.avatar }} />
-                                </View> */}
-                              </View>
-                              <View style={{ width: "80%", alignItems: "center", alignContent: "center" }}>
-                                <View style={{ maxWidth: "95%", backgroundColor: "#eaeaea", padding: 20, borderRadius: 10, alignContent: "center", alignItems: "center" }}>
-                                  <Image style={{ width: 250, height: 250, resizeMode: "contain" }} source={{ uri: "http://swmcapp.com/uploads/" + item.image }} />
-                                </View>
-                                <View style={{ width: "95%", paddingVertical: 4, paddingRight: 10 }}>
-                                  <View style={{ flexDirection: "row" }}>
-                                    <View style={{ paddingHorizontal: 3, paddingTop: 3 }}>
-                                      <Image style={{ width: 7, height: 7, resizeMode: "contain" }} source={require("../assets/images/timer_grey.png")} />
-                                    </View>
-                                    <Text style={{ fontSize: 10, color: "#fff" }}>
-                                      {moment(item.date).format("h:m A")}
-                                    </Text>
-
-                                  </View>
-                                </View>
-                              </View>
-                            </View>
-                          </View>
-                        )
-                      } else {
-                        return (
-                          <View key={index} >
-                            <View style={{ flexDirection: "row-reverse", marginTop: 10, paddingHorizontal: 20 }}>
-                            <View style={{ width: "auto", backgroundColor:"#fff", borderTopLeftRadius:10,borderTopRightRadius:10, borderBottomLeftRadius:10, borderBottomRightRadius:3}}>
-                                <View style={{ padding: 10 }}>
-                                  <Text style={{ lineHeight: 26,paddingHorizontal:10 }}>{item.text}</Text>
-                                </View>
-                              </View>
-                              <View style={{ width: "40%" }}>
-                              </View>
-                            </View>
-                            {/* <View style={{ flexDirection: "row-reverse", marginRight: 20 }}>
-                              <View style={{ padding: 10 }}>
-
-                                <Text style={{ textAlign: "right", fontSize: 12, color: "#fff" }}> {moment(item.date).format("h:m A")} </Text>
-                              </View>
-                              <View style={{ width: "40%" }}>
-                              </View>
-                            </View> */}
-                          </View>
-
-                        )
-                      }
-                    }
-               }
-                )}
+        <ScrollView style={{ borderTopLeftRadius: 30, }}>
+          {/* ............................chat left................................ */}
+          <View style={{ flexDirection: "row", marginTop: 10, paddingLeft: 20 }}>
+            <View style={{ width: "auto", backgroundColor: '#eaeaea', borderTopLeftRadius: 10, borderTopRightRadius: 10, borderBottomRightRadius: 10, borderBottomLeftRadius: 3 }}>
+              <View style={{ width: "100%", padding: 10 }}>
+                <Text style={{ lineHeight: 26, color: "#000" }}>kay halla ha g  </Text>
+              </View>
             </View>
-          </ScrollView>
-          <View 
-          style={{ 
+          </View>
+
+          {/* ............................chat reight................................ */}
+          <View style={{ flexDirection: "row-reverse", marginTop: 10, paddingHorizontal: 20 }}>
+            <View style={{ width: "auto", backgroundColor: "#DFD5E2", borderTopLeftRadius: 10, borderTopRightRadius: 10, borderBottomLeftRadius: 10, borderBottomRightRadius: 3 }}>
+              <View style={{ padding: 10 }}>
+                <Text style={{ lineHeight: 26, paddingHorizontal: 10 }}>allah ka karm ha g</Text>
+              </View>
+            </View>
+            <View style={{ width: "40%" }}>
+            </View>
+          </View>
+
+          {/* ............................img reight................................ */}
+          <View style={{ flexDirection: "row" }}>
+            <View style={{ width: "70%", alignItems: "center", alignContent: "center", marginTop: 15 }}>
+              <View style={{ maxWidth: "95%", backgroundColor: "#eaeaea", padding: 20, borderRadius: 10, alignContent: "center", alignItems: "center" }}>
+                <Image style={{ width: 250, height: 160, resizeMode: "contain" }} source={{ uri: "https://scx2.b-cdn.net/gfx/news/2020/1-children.jpg" }} />
+              </View>
+            </View>
+          </View>
+
+          {/* ............................img left................................ */}
+          <View style={{ flexDirection: "row-reverse" }}>
+            <View style={{ width: "70%", alignItems: "center", alignContent: "center", marginTop: 15 }}>
+              <View style={{ maxWidth: "95%", backgroundColor: "#DFD5E2", padding: 20, borderRadius: 10, alignContent: "center", alignItems: "center" }}>
+                <Image style={{ width: 250, height: 160, resizeMode: "contain" }} source={{ uri: "https://scx2.b-cdn.net/gfx/news/2020/1-children.jpg" }} />
+              </View>
+
+            </View>
+          </View>
+
+
+
+          {/* <View >
+            {
+              this.state.messages.map((item, index) => {
+
+                if (item.user != this.state.user_name.toLowerCase()) {
+                  if (item.image) {
+                    return (
+                      <View key={index} style={{ width: "100%", paddingVertical: 10 }}>
+                        <View style={{ flexDirection: "row" }}>
+                          <View style={{ width: "20%" }}>
+                            <View style={{ width: 60, height: 60, borderRadius: 60, borderColor: "#fff", borderWidth: 3 }}>
+                              <Image style={{ width: 55, height: 55, resizeMode: "cover", borderRadius: 55 }} source={require("../assets/images/admin_av.png")} />
+                            </View>
+                          </View>
+                          <View style={{ width: "80%", alignItems: "center", alignContent: "center" }}>
+                            <View style={{ maxWidth: "95%", backgroundColor: "#eaeaea", padding: 20, borderRadius: 10, alignContent: "center", alignItems: "center" }}>
+                              <Image style={{ width: 250, height: 250, resizeMode: "contain" }} source={{ uri: "http://swmcapp.com/uploads/temp/" + item.image }} />
+                            </View>
+                            <View style={{ width: "95%", paddingVertical: 4, paddingRight: 10 }}>
+                              <View style={{ flexDirection: "row-reverse" }}>
+                                <Text style={{ fontSize: 10, color: "#fff" }}>
+                                  {moment(item.date).format("h:m A")}
+                                </Text>
+                                <View style={{ paddingHorizontal: 3, paddingTop: 3 }}>
+                                  <Image style={{ width: 7, height: 7, resizeMode: "contain" }} source={require("../assets/images/timer_grey.png")} />
+                                </View>
+                              </View>
+                            </View>
+                          </View>
+                        </View>
+                      </View>
+
+                    )
+                  } else {
+                    return (
+
+                      <View key={index} style={{ flexDirection: "row", marginTop: 10, paddingLeft: 20 }}>
+                        <View style={{ width: "auto", backgroundColor: 'rgba(0,0,0,0.3)', borderTopLeftRadius: 10, borderTopRightRadius: 10, borderBottomRightRadius: 10, borderBottomLeftRadius: 3 }}>
+
+
+                          <View style={{ width: "70%", padding: 20 }}>
+                            <Text style={{ lineHeight: 26, color: "#fff" }}>{item.text}</Text>
+                          </View>
+
+                        </View>
+
+                      </View>
+                    )
+                  }
+
+                } else {
+                  if (item.image) {
+                    return (
+                      <View key={index} style={{ width: "100%", paddingVertical: 10 }}>
+                        <View style={{ flexDirection: "row-reverse" }}>
+                          <View style={{ width: "20%" }}>
+                           
+                          </View>
+                          <View style={{ width: "80%", alignItems: "center", alignContent: "center" }}>
+                            <View style={{ maxWidth: "95%", backgroundColor: "#eaeaea", padding: 20, borderRadius: 10, alignContent: "center", alignItems: "center" }}>
+                              <Image style={{ width: 250, height: 250, resizeMode: "contain" }} source={{ uri: "http://swmcapp.com/uploads/" + item.image }} />
+                            </View>
+                            <View style={{ width: "95%", paddingVertical: 4, paddingRight: 10 }}>
+                              <View style={{ flexDirection: "row" }}>
+                                <View style={{ paddingHorizontal: 3, paddingTop: 3 }}>
+                                  <Image style={{ width: 7, height: 7, resizeMode: "contain" }} source={require("../assets/images/timer_grey.png")} />
+                                </View>
+                                <Text style={{ fontSize: 10, color: "#fff" }}>
+                                  {moment(item.date).format("h:m A")}
+                                </Text>
+
+                              </View>
+                            </View>
+                          </View>
+                        </View>
+                      </View>
+                    )
+                  } else {
+                    return (
+                      <View key={index} >
+                        <View style={{ flexDirection: "row-reverse", marginTop: 10, paddingHorizontal: 20 }}>
+                          <View style={{ width: "auto", backgroundColor: "#fff", borderTopLeftRadius: 10, borderTopRightRadius: 10, borderBottomLeftRadius: 10, borderBottomRightRadius: 3 }}>
+                            <View style={{ padding: 10 }}>
+                              <Text style={{ lineHeight: 26, paddingHorizontal: 10 }}>{item.text}</Text>
+                            </View>
+                          </View>
+                          <View style={{ width: "40%" }}>
+                          </View>
+                        </View>
+                     
+                      </View>
+
+                    )
+                  }
+                }
+              }
+              )}
+          </View>
+        */}
+        </ScrollView>
+        <View
+          style={{
             width: "100%",
-             flexDirection: "row",
-             backgroundColor: "#8757C7", 
+            flexDirection: "row",
+            backgroundColor: "#8757C7",
             //  marginBottom: Constants.platform.ios ? this.state.keyboardHeight : 0, 
-             padding:10}}>
-            <View style={{ width: "88%", backgroundColor: "#FFf", borderRadius: 50, flexDirection: "row", marginLeft: 8, paddingVertical: 8, }}>
-              <View style={{ width: "80%" }}>
-                {this.state.show_loan ? (
+            padding: 10
+          }}>
+          <View style={{ width: "88%", backgroundColor: "#FFf", borderRadius: 50, flexDirection: "row", marginLeft: 8, paddingVertical: 8, }}>
+            <View style={{ width: "80%" }}>
+              {this.state.show_loan ? (
+                <TextInput
+                  key={'input-num'}
+                  multiline={false}
+                  keyboardType={"number-pad"}
+                  style={{
+                    color: "black",
+
+                    fontSize: 15, paddingHorizontal: 15
+                  }}
+                  // placeholder={"Loan Number"}
+                  placeholderTextColor="#AEAEAE"
+                  onChangeText={(search) => {
+                    this.setState({ message: search });
+                  }}
+                  value={this.state.message}
+                />
+              ) : (
                   <TextInput
-                    key={'input-num'}
-                    multiline={false}
-                    keyboardType={"number-pad"}
-                    style={{ color: "black",
-                    
-                     fontSize: 15, paddingHorizontal: 15 }}
-                    // placeholder={"Loan Number"}
+                    key={'input-def'}
+                    multiline={true}
+                    keyboardAppearance={"dark"}
+                    style={{ color: 'black', fontSize: 15, paddingHorizontal: 15 }}
+                    placeholder={"Type your message here..."}
                     placeholderTextColor="#AEAEAE"
                     onChangeText={(search) => {
                       this.setState({ message: search });
                     }}
                     value={this.state.message}
                   />
-                ) : (
-                    <TextInput
-                      key={'input-def'}
-                      multiline={true}
-                      keyboardAppearance={"dark"}
-                      style={{ color: 'black', fontSize: 15, paddingHorizontal: 15 }}
-                      placeholder={"Type your message here..."}
-                      placeholderTextColor="#AEAEAE"
-                      onChangeText={(search) => {
-                        this.setState({ message: search });
-                      }}
-                      value={this.state.message}
-                    />
-                  )}
-              </View>
-              <TouchableOpacity style={{ width: "10%", marginTop: 6 }} onPress={() => this.setState({ showPopup: true })}>
-                <Entypo name="attachment" size={20} color="#C7C7C7" />
-              </TouchableOpacity>
-
-              <TouchableOpacity style={{ width: "10%", marginTop: 6 }} onPress={() => this.submitmessage()}>
-                <MaterialIcons style={{}} name="send" size={20} color="#C7C7C7" />
-              </TouchableOpacity>
-
+                )}
             </View>
-            <TouchableOpacity style={{ width: "12%", marginTop: 10, marginHorizontal: 5, borderRadius: 100, borderColor: "black" }} onPress={() => {
-              if (this.state.message == "") {
-                this.setState({ show_loan: !this.state.show_loan })
-              }
-
-            }}>
-              <MaterialCommunityIcons name="dlna" size={24} color="#C7C7C7" />
+            <TouchableOpacity style={{ width: "10%", marginTop: 6 }} onPress={() => this.setState({ showPopup: true })}>
+              <Entypo name="attachment" size={20} color="#C7C7C7" />
             </TouchableOpacity>
 
-            {/* <TouchableOpacity style={{width:"20%"}}>
+            <TouchableOpacity style={{ width: "10%", marginTop: 6 }} onPress={() => this.submitmessage()}>
+              <MaterialIcons style={{}} name="send" size={20} color="#C7C7C7" />
+            </TouchableOpacity>
+
+          </View>
+          <TouchableOpacity style={{ width: "12%", marginTop: 10, marginHorizontal: 5, borderRadius: 100, borderColor: "black" }} onPress={() => {
+            if (this.state.message == "") {
+              this.setState({ show_loan: !this.state.show_loan })
+            }
+
+          }}>
+            <MaterialCommunityIcons name="dlna" size={24} color="#C7C7C7" />
+          </TouchableOpacity>
+
+          {/* <TouchableOpacity style={{width:"20%"}}>
                <Ionicons style={{}} name="md-add" size={24} color="#ffffff" />
                </TouchableOpacity>
                <TouchableOpacity style={{width:"20%"}}onPress={()=>this.sendMessage()}>
@@ -570,36 +606,36 @@ export default class Chat extends Component {
                </TouchableOpacity>
           */}
 
-            {this.state.showPopup ? (
-              <View style={{ width: deviceWidth, backgroundColor: "#fff", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderTopColor: "#80080", position: "absolute", bottom: 80 }}>
-                <TouchableOpacity onPress={this._pickImage} style={{ width: "100%", alignContent: "center", alignItems: "center", borderBottomColor: "#808080", borderBottomWidth: 0.8, paddingVertical: 10 }}>
-                  <Text style={{ fontSize: 22 }}>Gallery</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={this._scanImage} style={{ width: "100%", alignContent: "center", alignItems: "center", borderBottomColor: "#808080", borderBottomWidth: 0.8, paddingVertical: 10 }}>
-                  <Text style={{ fontSize: 22 }}>Scan</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.setState({ showPopup: false })} style={{ width: "100%", alignContent: "center", alignItems: "center", borderBottomColor: "#808080", borderBottomWidth: 0.8, paddingVertical: 10 }}>
-                  <Text style={{ fontSize: 22, color: "#ff0000" }}>Cancel</Text>
-                </TouchableOpacity>
-              </View>
-            ) : null}
+          {this.state.showPopup ? (
+            <View style={{ width: deviceWidth, backgroundColor: "#fff", borderTopLeftRadius: 30, borderTopRightRadius: 30, borderTopColor: "#80080", position: "absolute", bottom: 80 }}>
+              <TouchableOpacity onPress={this._pickImage} style={{ width: "100%", alignContent: "center", alignItems: "center", borderBottomColor: "#808080", borderBottomWidth: 0.8, paddingVertical: 10 }}>
+                <Text style={{ fontSize: 22 }}>Gallery</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={this._scanImage} style={{ width: "100%", alignContent: "center", alignItems: "center", borderBottomColor: "#808080", borderBottomWidth: 0.8, paddingVertical: 10 }}>
+                <Text style={{ fontSize: 22 }}>Scan</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => this.setState({ showPopup: false })} style={{ width: "100%", alignContent: "center", alignItems: "center", borderBottomColor: "#808080", borderBottomWidth: 0.8, paddingVertical: 10 }}>
+                <Text style={{ fontSize: 22, color: "#ff0000" }}>Cancel</Text>
+              </TouchableOpacity>
+            </View>
+          ) : null}
 
 
 
-            {/* <Modal isVisible={this.state.isModalLoaderVisible}>
+          {/* <Modal isVisible={this.state.isModalLoaderVisible}>
           <View style={{width: "100%",alignItems:"center", alignContent:"center"}}>
            
 <ActivityIndicator size={"large"}/>
             
           </View>
         </Modal> */}
-        {/* <Footer1 title={"Chat"} navigation={this.props.navigation} /> */}
+          {/* <Footer1 title={"Chat"} navigation={this.props.navigation} /> */}
 
-          </View>
+        </View>
 
 
-          {/* </LinearGradient> */}
-        
+        {/* </LinearGradient> */}
+
 
       </MenuProvider>
     )
@@ -629,7 +665,7 @@ const styles = StyleSheet.create({
     height: 60,
     resizeMode: "cover",
     borderRadius: 80
-    ,borderWidth:2,borderColor:"#f7bb97"
+    , borderWidth: 2, borderColor: "#f7bb97"
 
 
   },

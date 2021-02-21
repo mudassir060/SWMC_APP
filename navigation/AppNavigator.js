@@ -15,7 +15,7 @@ import Scrollist from '../screens/Scrollist';
 import Profile from '../screens/Profile';
 import ChatScreenTesting from "../screens/ChatScreenTesting";
 import NewChat from "../screens/NewChat";
-
+import Sign_up from "../screens/Sign_up";
 
 
 
@@ -39,6 +39,7 @@ export default function AppNavigator() {
       <Stack.Screen name="start" component={StartSaved}  />
       <Stack.Screen name="scrollList" component={Scrollist}  />
       <Stack.Screen name="profile" component={Profile}  />
+      <Stack.Screen name="Sign_up" component={Sign_up}  />
       
      
       

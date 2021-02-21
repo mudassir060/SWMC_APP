@@ -55,16 +55,16 @@ export default class Footer extends Component {
 
   render(){
     return (
-      <View style={{ width: "100%", position: "absolute", bottom: 10,zIndex:0,alignItems:"center",alignContent:"center" }}>
-      <View style={{width:"80%", flexDirection: "row", backgroundColor: '#FEFEFE',borderTopWidth :1, borderTopColor: '#D1D1D1',paddingVertical:1,paddingHorizontal:5,borderBottomLeftRadius:15,borderTopRightRadius:15}}>
+      <View style={{ width: "100%", position: "absolute", bottom: 0,zIndex:0,alignItems:"center",alignContent:"center" }}>
+      <View style={{width:"100%", flexDirection: "row", backgroundColor: '#8757C7',paddingVertical:1,paddingHorizontal:5,}}>
       <View style={styles.icon}>
-        <TouchableOpacity style={{ width: "100%",alignItems:"center",backgroundColor:this.props.title=="profile"? "#FAF1EF":"#fff",borderBottomLeftRadius:15 }} onPress={() => this.props.navigation.navigate('profile')} >
+        <TouchableOpacity style={{ width: "100%",alignItems:"center",backgroundColor:"#8757C7",borderBottomLeftRadius:15 }} onPress={() => this.props.navigation.navigate('profile')} >
          
          <View style={{width:"100%",paddingTop:10,paddingBottom:5,alignItems:"center" }}>
          <View>
-         <Octicons name="person" size={24} color={this.props.title == "profile" ? "#E4717D" : "#B1B1B1"} />
+         <Octicons name="person" size={34} color={this.props.title == "profile" ? "#E4717D" : "#fff"} />
           </View>
-          <Text style={{ color: this.props.title == "profile" ? "#E4717D" : "#B1B1B1",textAlign:"center",marginTop:2 }} >Profile </Text>
+          {/* <Text style={{ color: this.props.title == "profile" ? "#E4717D" : "#fff",textAlign:"center",marginTop:2 }} >Profile </Text> */}
        
          </View>
           </TouchableOpacity>
@@ -72,26 +72,26 @@ export default class Footer extends Component {
       </View>
       
       <View style={styles.icon}>
-        <TouchableOpacity style={{ width: "100%",alignItems:"center",backgroundColor:this.props.title=="Messages"? "#FAF1EF":"#fff" }} onPress={() => this.props.navigation.navigate('Messages')}>
+        <TouchableOpacity style={{ width: "100%",alignItems:"center",backgroundColor:"#8757C7" }} onPress={() => this.props.navigation.navigate('Messages')}>
         <View style={{width:"95%",paddingTop:10,paddingBottom:5,alignItems:"center"}}>
         <View>
       
-        <Entypo name="chat" size={24} color={this.props.title == "Messages" ? "#E4717D" : "#B1B1B1"} />
+        <Entypo name="chat" size={34} color={this.props.title == "Messages" ? "#fff" : "#B1B1B1"} />
           </View>
-          <Text style={{ color: this.props.title == "Messages" ? "#E4717D" : "#B1B1B1",textAlign:"center", }} >History </Text>
+          {/* <Text style={{ color: this.props.title == "Messages" ? "#fff" : "#B1B1B1",textAlign:"center", }} >History </Text> */}
           </View>   
           
         </TouchableOpacity>
 
       </View>
       <View style={styles.icon}>
-        <TouchableOpacity style={{ width: "100%",alignItems:"center",backgroundColor:this.props.title=="Chat"? "#FAF1EF":"#fff",borderTopRightRadius:15  }} onPress={() => this.props.navigation.navigate('Chat')}>
+        <TouchableOpacity style={{ width: "100%",alignItems:"center",backgroundColor:"#8757C7",borderTopRightRadius:15  }} onPress={() => this.props.navigation.navigate('Chat')}>
           
         <View style={{width:"95%",paddingTop:10,paddingBottom:5,alignItems:"center"}}>
         <View >
-         <MaterialIcons name="chat-bubble-outline" size={24} color={this.props.title == "Chat" ? "#E4717D" : "#B1B1B1"}/>
+         <MaterialIcons name="chat-bubble-outline" size={34} color={this.props.title == "Chat" ? "#E4717D" : "#fff"}/>
           </View>
-          <Text style={{ color: this.props.title == "Chat" ? "#E4717D" : "#B1B1B1",textAlign:"center",marginTop:1 }} >Chat </Text>
+          {/* <Text style={{ color: this.props.title == "Chat" ? "#E4717D" : "#fff",textAlign:"center",marginTop:1 }} >Chat </Text> */}
           </View>  
         </TouchableOpacity>
 

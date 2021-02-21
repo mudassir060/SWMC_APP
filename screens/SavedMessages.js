@@ -428,11 +428,11 @@ export default class SavedMessages extends Component {
           {/* <HeaderScreen title={"Search Display"} filter={true} back={true} navigation={this.props.navigation} /> */}
           <View style={{ width: "100%", padding: 10, backgroundColor: '#8757C7', flexDirection: "row" }}>
 
-            <TouchableOpacity style={{ alignItems: "center", marginTop: 5 }}
+            {/* <TouchableOpacity style={{ alignItems: "center", marginTop: 5 }}
               onPress={() => this.props.navigation.navigate('profile')}
             >
-              <Entypo name="chevron-thin-left" size={24} color="#2F368E" />
-            </TouchableOpacity>
+              <Entypo name="chevron-thin-left" size={24} color="#fff" />
+            </TouchableOpacity> */}
 
             <View style={{ width: "100%", paddingLeft: 100 }}>
               <Text style={{ color: "#fff", fontSize: 25, fontWeight: "bold" }}>Messages</Text>

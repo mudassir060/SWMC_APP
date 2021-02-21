@@ -35,7 +35,7 @@ import { TextInput } from "react-native-gesture-handler";
 var deviceHeight = Dimensions.get("window").height;
 var deviceWidth = Dimensions.get("window").width;
 
-export default class Login extends Component {
+export default class Sign_up extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -191,6 +191,7 @@ export default class Login extends Component {
         department_err: ""
       });
     }
+    this.props.navigation.push("Messages")
 
     if (name != "" && email != "" && l_email.indexOf("@swmc.com") != -1 && department != 0) {
       this.setState({ isLoading: true });
@@ -331,14 +332,14 @@ export default class Login extends Component {
 
                 <View style={{ flex: 1 }}>
                   <Text style={{ margin: 50, marginBottom: 0, color: "#fff", fontSize: 35, fontWeight: "bold", marginTop: 103 }}>
-                    Sign in
+                    Sign up
                       </Text>
                   <Text style={{ marginLeft: 50, marginTop: -5, color: "#fff", fontSize: 17 }}>
                     Welcome to Morgan
                       </Text>
                 </View>
                 <View
-                  style={{ width: "100%", alignItems: "center", alignContent: "center", flex: 1, marginTop: 223 }}>
+                  style={{ width: "100%", alignItems: "center", alignContent: "center", flex: 1, marginTop: 160 }}>
                   {/* //////////////////////////////Choose Image///////////////////////////////// */}
                   {/* <View style={{ width: "90%", marginVertical: 0, alignItems: "center", justifyContent: "center" }}>
                     <View style={{ marginTop: 35 }}>
@@ -374,7 +375,7 @@ export default class Login extends Component {
                   <View>
                     <Text style={{ color: "red" }}>{this.state.name_err}</Text>
                   </View>
-                  {/* ////////////////////////////////Name TextInput/////////////////////////////// backgroundColor: 'rgba(238,238,238,0.2)' */}
+                  {/* ////////////////////////////////Email TextInput/////////////////////////////// backgroundColor: 'rgba(238,238,238,0.2)' */}
                   <View style={{ width: "80%", marginTop: 5, borderBottomWidth: 2, borderColor: "#000", paddingTop: 5, paddingBottom: 5, }}>
                     <Text style={{ marginLeft: 10, marginTop: -5, color: "#000", fontSize: 15, fontWeight: "bold" }}>
                       Email Address
@@ -392,8 +393,45 @@ export default class Login extends Component {
                   <View>
                     <Text style={{ color: "red" }}>{this.state.email_err}</Text>
                   </View>
+                  {/* ////////////////////////////////Phone TextInput/////////////////////////////// backgroundColor: 'rgba(238,238,238,0.2)' */}
+                  <View style={{ width: "80%", marginTop: 5, borderBottomWidth: 2, borderColor: "#000", paddingTop: 5, paddingBottom: 5, }}>
+                    <Text style={{ marginLeft: 10, marginTop: -5, color: "#000", fontSize: 15, fontWeight: "bold" }}>
+                    Address
+                      </Text>
+                    <TextInput
+                      style={{ fontSize: 15, paddingHorizontal: 10, color: "#000" }}
+                      placeholder="Enter Address"
+                      placeholderTextColor="#000"
+                      onChangeText={(address) => {
+                        this.setState({ address });
+                      }}
+                      value={this.state.address}
+                    />
+                  </View>
+                  <View>
+                    <Text style={{ color: "red" }}>{this.state.address_err}</Text>
+                  </View>
+
+                                   {/* ////////////////////////////////Phone TextInput/////////////////////////////// backgroundColor: 'rgba(238,238,238,0.2)' */}
+                                   <View style={{ width: "80%", marginTop: 5, borderBottomWidth: 2, borderColor: "#000", paddingTop: 5, paddingBottom: 5, }}>
+                    <Text style={{ marginLeft: 10, marginTop: -5, color: "#000", fontSize: 15, fontWeight: "bold" }}>
+                    Phone Number
+                      </Text>
+                    <TextInput
+                      style={{ fontSize: 15, paddingHorizontal: 10, color: "#000" }}
+                      placeholder="Enter Phone Number"
+                      placeholderTextColor="#000"
+                      onChangeText={(phone) => {
+                        this.setState({ phone });
+                      }}
+                      value={this.state.phone}
+                    />
+                  </View>
+                  <View>
+                    <Text style={{ color: "red" }}>{this.state.address_err}</Text>
+                  </View>
                   {/* ////////////////////////////////dropdown/////////////////////////////// */}
-                  <View style={{ width: "80%", marginTop: 6 }}>
+                  {/* <View style={{ width: "80%", marginTop: 6 }}>
                     <View
                       style={{
                         // backgroundColor: 'rgba(238,238,238,0.2)',
@@ -427,18 +465,18 @@ export default class Login extends Component {
                     </View>
                     <Text style={{ color: "red" }}>{this.state.department_err}</Text>
                   </View>
-              
+                 */}
                   <View style={{ width: "100%", marginTop: 15, alignItems: "center", alignContent: "center" }}>
 
-                    <TouchableOpacity style={styles.login_button} onPress={() => this.submit()} >
-                      <Text style={{ color: '#fff', fontSize: 20 }}>Login</Text>
+                    <TouchableOpacity style={styles.login_button} onPress={() => this.submit()}  >
+                      <Text style={{ color: '#fff', fontSize: 20 }}>Sign up</Text>
                     </TouchableOpacity>
 
                   </View>
-                  <View style={{ width: "100%", marginTop: 15, flexDirection: "row", marginLeft:190 }}>
-                    <Text style={{ color: '#000', fontSize: 15 }}>Dont have an account? </Text>
-                    <TouchableOpacity onPress={()=>this.props.navigation.navigate('Sign_up')}>
-                      <Text style={{ color: '#8757C7', fontSize: 15, fontWeight:'bold' }}> Sign Up</Text>
+                  <View style={{ width: "100%", marginTop: 15, flexDirection: "row", marginLeft:203 }}>
+                    <Text style={{ color: '#000', fontSize: 15 }}>Aleady have an acount? </Text>
+                    <TouchableOpacity onPress={()=>this.props.navigation.navigate('Login')}>
+                      <Text style={{ color: '#8757C7', fontSize: 15, fontWeight:'bold' }}> Login</Text>
                     </TouchableOpacity>
 
                   </View>
